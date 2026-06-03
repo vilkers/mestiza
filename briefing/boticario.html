@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alinhamento de Projeto — Shooting Boticário / Mestiza</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:     #000;
+      --bg-s:   #0d0d0d;
+      --fg:     #f2efe9;
+      --dim:    #8f8b83;
+      --line:   #2a2a2a;
+      --accent: #c9a86a;
+      --g: clamp(20px, 6vw, 80px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "STIX Two Text", Georgia, serif;
+      font-size: 17px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    /* ---- Layout ---- */
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: clamp(48px, 10vh, 100px) var(--g) clamp(60px, 10vh, 120px);
+    }
+
+    /* ---- Header ---- */
+    .brief-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-bottom: clamp(40px, 7vh, 72px);
+      border-bottom: 1px solid var(--line);
+      margin-bottom: clamp(40px, 7vh, 72px);
+    }
+
+    .brief-logo {
+      width: clamp(100px, 18vw, 160px);
+      margin-bottom: 32px;
+    }
+
+    .brief-logo img { width: 100%; }
+
+    .brief-title {
+      font-size: clamp(1.4rem, 4vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    .brief-sub {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--dim);
+      margin-bottom: 24px;
+    }
+
+    .brief-intro {
+      max-width: 56ch;
+      color: var(--dim);
+      font-style: italic;
+      font-size: 1rem;
+    }
+
+    /* ---- Sections ---- */
+    .section {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 0 clamp(24px, 4vw, 48px);
+      padding: clamp(32px, 5vh, 56px) 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-num {
+      padding-top: 4px;
+    }
+
+    .section-num .num {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--accent);
+      display: block;
+    }
+
+    .section-num .label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--dim);
+      margin-top: 4px;
+      display: block;
+    }
+
+    .section-body { display: flex; flex-direction: column; gap: 24px; }
+
+    .question { display: flex; flex-direction: column; gap: 10px; }
+
+    .q-label {
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .q-label strong { font-weight: 600; }
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      background: var(--bg-s);
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      color: var(--fg);
+      font-family: inherit;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      padding: 14px 16px;
+      resize: vertical;
+      transition: border-color 0.2s ease;
+      outline: none;
+    }
+
+    textarea::placeholder { color: #4a4743; font-style: italic; }
+    textarea:focus { border-color: var(--accent); }
+
+    /* ---- Submit ---- */
+    .form-footer {
+      padding-top: clamp(32px, 5vh, 56px);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .form-note {
+      color: var(--dim);
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+
+    button[type="submit"] {
+      background: var(--fg);
+      color: var(--bg);
+      border: none;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 16px 40px;
+      cursor: pointer;
+      letter-spacing: 0.02em;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    /* ---- Success state ---- */
+    .success {
+      display: none;
+      text-align: center;
+      padding: clamp(60px, 12vh, 120px) var(--g);
+    }
+
+    .success.visible { display: block; }
+    form.hidden { display: none; }
+
+    .success-mark {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .success p {
+      color: var(--dim);
+      max-width: 40ch;
+      margin: 0 auto;
+      font-style: italic;
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 600px) {
+      .section { grid-template-columns: 1fr; gap: 16px 0; }
+      .section-num { display: flex; align-items: baseline; gap: 12px; }
+      .section-num .num { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="brief-header">
+    <div class="brief-logo">
+      <img src="../assets/logo/logo-site-flat.png" alt="Mestiza" />
+    </div>
+    <h1 class="brief-title">Alinhamento de Projeto<br>Shooting Boticário</h1>
+    <p class="brief-sub">Vitória — ES &nbsp;|&nbsp; Direção de Produção</p>
+    <p class="brief-intro">
+      Prezada equipe, para darmos andamento à produção e garantir o perfeito
+      alinhamento das expectativas e entregas, solicitamos o preenchimento
+      das questões abaixo.
+    </p>
+  </header>
+
+  <!-- SUCCESS -->
+  <div class="success" id="success">
+    <p class="success-mark">✓</p>
+    <h2 style="font-size:1.6rem;margin-bottom:12px;">Respostas enviadas.</h2>
+    <p>Recebemos seu alinhamento. Entraremos em contato em breve para confirmar o cronograma.</p>
+  </div>
+
+  <!-- FORM -->
+  <!-- ⚠️  Replace ACTION with your Formspree endpoint (see instructions below) -->
+  <form id="brief-form" action="https://formspree.io/f/REPLACE_ME" method="POST">
+
+    <!-- Hidden fields for context -->
+    <input type="hidden" name="_subject" value="Alinhamento de Projeto — Shooting Boticário" />
+    <input type="hidden" name="_replyto" value="" />
+
+    <!-- 01 -->
+    <section class="section">
+      <div class="section-num">
+        <span class="num">01</span>
+        <span class="label">Casting &amp;<br>Experiência</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <p class="q-label">
+            <strong>Definição de Personagens:</strong> A preferência é pela contratação
+            de modelos profissionais ou será necessária a participação de representantes
+            reais da marca?
+          </p>
+          <textarea name="01_casting_personagens" placeholder="Insira sua resposta aqui…" rows="4"></textarea>
+        </div>
+        <div class="question">
+          <p class="q-label">
+            <strong>Logística de Contato:</strong> Caso a opção seja por representantes
+            reais, o time do Boticário ficará responsável por consolidar a lista de nomes
+            e realizar o contato inicial/convite formal? O time Boticário trará os
+            representantes para a locação ou isso ficará por conta da produção?
+          </p>
+          <textarea name="01_casting_logistica" placeholder="Insira sua resposta aqui…" rows="4"></textarea>
+        </div>
+        <div class="question">
+          <p class="q-label">
+            <strong>Ações de Receptivo:</strong> Se contarmos com representantes, está
+            prevista alguma ação de receptivo ou relacionamento (como um petit comité)
+            antes ou após a sessão de fotos?
+          </p>
+          <textarea name="01_casting_receptivo" placeholder="Insira sua resposta aqui…" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 -->
+    <section class="section">
+      <div class="section-num">
+        <span class="num">02</span>
+        <span class="label">Set &amp;<br>Logística</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <p class="q-label">
+            <strong>Acompanhamento de Equipe:</strong> O set fotográfico está planejado
+            para acontecer em Vitória-ES. A equipe Boticário pretende acompanhar o
+            shooting presencialmente? Se sim, quantas pessoas estimam enviar?
+          </p>
+          <textarea name="02_set_equipe" placeholder="Insira sua resposta aqui…" rows="4"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 -->
+    <section class="section">
+      <div class="section-num">
+        <span class="num">03</span>
+        <span class="label">Cronograma<br>&amp; Prazos</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <p class="q-label">
+            <strong>Previsão de Datas:</strong> Existe alguma indicação de data de
+            preferência por parte do Boticário para a produção do shooting, ou podemos
+            validar as agendas locais e propor um cronograma?
+          </p>
+          <textarea name="03_cronograma_datas" placeholder="Insira sua resposta aqui…" rows="3"></textarea>
+        </div>
+        <div class="question">
+          <p class="q-label">
+            <strong>Data Limite do Projeto:</strong> Qual é a data limite ideal para o
+            lançamento ou entrega final da campanha? Esse dado nos ajudará no
+            planejamento reverso da pós-produção.
+          </p>
+          <textarea name="03_cronograma_deadline" placeholder="Insira sua resposta aqui…" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 -->
+    <section class="section">
+      <div class="section-num">
+        <span class="num">04</span>
+        <span class="label">Produção<br>&amp; I.A.</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <p class="q-label">
+            <strong>Metodologia de Produção:</strong> Podemos considerar fotografar os
+            personagens reais e, posteriormente, estruturar seus character reference sheets
+            para a composição e montagem final das cenas via Inteligência Artificial (IA),
+            como na referência enviada?
+          </p>
+          <textarea name="04_producao_ia" placeholder="Insira sua resposta aqui…" rows="4"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 -->
+    <section class="section">
+      <div class="section-num">
+        <span class="num">05</span>
+        <span class="label">Branding<br>&amp; Imagem</span>
+      </div>
+      <div class="section-body">
+        <div class="question">
+          <p class="q-label">
+            <strong>Termos de Uso de Imagem:</strong> Caso a campanha conte com
+            representantes reais, o Boticário já possui modelo padrão de termo de
+            autorização (considerando também a manipulação digital/IA) ou preferem que
+            nós forneçamos esse documento?
+          </p>
+          <textarea name="05_branding_termos" placeholder="Insira sua resposta aqui…" rows="3"></textarea>
+        </div>
+        <div class="question">
+          <p class="q-label">
+            <strong>Styling e Figurino:</strong> Há alguma restrição ou diretriz específica
+            de branding para o figurino dos personagens (ex: cores institucionais
+            obrigatórias, veto a estampas ou marcas visíveis)?
+          </p>
+          <textarea name="05_branding_styling" placeholder="Insira sua resposta aqui…" rows="3"></textarea>
+        </div>
+        <div class="question">
+          <p class="q-label">
+            <strong>Formatos e Canais de Veiculação:</strong> Quais serão os principais
+            canais de veiculação da campanha (ex: OOH/painéis, digital, PDV)? Precisamos
+            mapear os formatos para a correta geração das cenas na IA.
+          </p>
+          <textarea name="05_branding_canais" placeholder="Insira sua resposta aqui…" rows="3"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <div class="form-footer">
+      <p class="form-note">
+        Confirmação de escopo técnico e operacional para liberação de cronograma.<br>
+        Ficamos à disposição para esclarecer qualquer dúvida.
+      </p>
+      <button type="submit">Enviar respostas →</button>
+    </div>
+
+  </form>
+</div>
+
+<script>
+  const form = document.getElementById('brief-form');
+  const success = document.getElementById('success');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.classList.add('hidden');
+      success.classList.add('visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      alert('Erro ao enviar. Tente novamente ou envie diretamente para hablar@mestiza.work.');
+    }
+  });
+</script>
+</body>
+</html>
