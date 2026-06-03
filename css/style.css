@@ -101,6 +101,7 @@ img { max-width: 100%; display: block; }
   width: 100%;
   height: auto;
   object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .hero-tagline {
