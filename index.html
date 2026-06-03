@@ -24,24 +24,16 @@
     </nav>
   </header>
 
-  <!-- ===== Hero with animated coin ===== -->
-  <section class="hero" data-coin-section>
-    <div class="coin-stage">
-      <!-- The coin. JS swaps frames here if assets/coin/ exists,
-           otherwise rotates this placeholder on scroll. -->
-      <div class="coin" data-coin>
-        <img data-coin-img alt="" src="assets/coin/coin_000.png"
-             onerror="this.style.display='none'; this.parentNode.classList.add('coin--placeholder');" />
-      </div>
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-logo">
+      <img src="assets/logo/logo-site-flat.png" alt="Mestiza" />
     </div>
-
     <div class="hero-copy">
-      <h1 class="hero-title">Mestiza</h1>
       <p class="hero-tagline">
         A creative studio working across brand, art direction&nbsp;and design.
       </p>
     </div>
-
     <div class="scroll-hint" aria-hidden="true">Scroll</div>
   </section>
 
@@ -106,6 +98,5 @@
     </div>
   </footer>
 
-  <script src="js/scroll-coin.js"></script>
 </body>
 </html>
