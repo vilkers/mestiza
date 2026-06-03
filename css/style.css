@@ -1,0 +1,366 @@
+/* =========================================================
+   Mestiza — base styles
+   Dark editorial theme. Typeface: STIX Two Text.
+   ========================================================= */
+
+:root {
+  --bg:        #0a0a0a;
+  --bg-soft:   #141414;
+  --fg:        #f2efe9;   /* warm off-white */
+  --fg-dim:    #8f8b83;   /* muted text */
+  --line:      #2a2a2a;   /* hairline borders */
+  --accent:    #c9a86a;   /* warm metallic (coin) accent */
+
+  --maxw: 1400px;
+  --gutter: clamp(20px, 5vw, 80px);
+
+  --t-fast: 0.25s ease;
+  --t-med:  0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "STIX Two Text", Georgia, serif;
+  font-size: 18px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+img { max-width: 100%; display: block; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px var(--gutter);
+  mix-blend-mode: difference;          /* stays legible over coin/images */
+  transition: transform var(--t-med);
+}
+
+.wordmark {
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.site-nav {
+  display: flex;
+  gap: clamp(20px, 3vw, 48px);
+}
+
+.site-nav a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  position: relative;
+}
+
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--t-fast);
+}
+
+.site-nav a:hover::after { transform: scaleX(1); }
+
+/* ---------- Hero / Coin ---------- */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 var(--gutter);
+}
+
+.coin-stage {
+  position: relative;
+  width: clamp(180px, 28vw, 360px);
+  height: clamp(180px, 28vw, 360px);
+  margin-bottom: clamp(24px, 4vw, 48px);
+  perspective: 1200px;
+}
+
+.coin {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.coin img { width: 100%; height: 100%; object-fit: contain; }
+
+/* Fallback coin when no frames are present yet */
+.coin--placeholder {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, #e8cd97 0%, var(--accent) 45%, #8a7038 100%);
+  box-shadow:
+    inset 0 0 30px rgba(0,0,0,0.35),
+    0 20px 60px rgba(201,168,106,0.15);
+  position: relative;
+}
+
+.coin--placeholder::after {
+  content: "M";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(60px, 12vw, 140px);
+  font-weight: 700;
+  color: rgba(0,0,0,0.25);
+}
+
+.hero-title {
+  font-size: clamp(3rem, 12vw, 9rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.hero-tagline {
+  margin-top: clamp(16px, 2vw, 24px);
+  max-width: 40ch;
+  font-size: clamp(1rem, 1.6vw, 1.3rem);
+  font-style: italic;
+  color: var(--fg-dim);
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fg-dim);
+  animation: bob 2s ease-in-out infinite;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.6; }
+  50%      { transform: translate(-50%, 6px); opacity: 1; }
+}
+
+/* ---------- Statement ---------- */
+.statement {
+  padding: clamp(80px, 14vh, 180px) var(--gutter);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.statement p {
+  font-size: clamp(1.6rem, 4vw, 3.2rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+/* ---------- Sections ---------- */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 var(--gutter);
+  margin-bottom: 40px;
+}
+
+.section-head h2 {
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.link-arrow {
+  font-size: 0.95rem;
+  color: var(--fg-dim);
+  transition: color var(--t-fast);
+}
+.link-arrow:hover { color: var(--fg); }
+
+/* ---------- Work grid ---------- */
+.work-preview { padding-bottom: clamp(80px, 14vh, 160px); }
+
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(20px, 3vw, 56px);
+  padding: 0 var(--gutter);
+}
+
+.work-item { display: block; }
+
+.work-thumb {
+  aspect-ratio: 4 / 3;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-dim);
+  font-style: italic;
+  overflow: hidden;
+  transition: transform var(--t-med), border-color var(--t-fast);
+}
+
+.work-item:hover .work-thumb {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+}
+
+.work-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 16px;
+}
+
+.work-name { font-size: 1.2rem; font-weight: 500; }
+.work-cat  { font-size: 0.9rem; color: var(--fg-dim); }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: clamp(40px, 8vh, 80px) var(--gutter);
+  border-top: 1px solid var(--line);
+}
+
+.footer-mark { font-size: 2rem; font-weight: 600; }
+.footer-note { color: var(--fg-dim); font-size: 0.9rem; margin-top: 4px; }
+
+.footer-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+.footer-right a {
+  color: var(--fg-dim);
+  transition: color var(--t-fast);
+}
+.footer-right a:hover { color: var(--fg); }
+
+/* ---------- Generic page shell (about / work / contact) ---------- */
+.page {
+  padding: clamp(140px, 20vh, 220px) var(--gutter) clamp(80px, 12vh, 140px);
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: clamp(32px, 5vw, 64px);
+}
+
+.lead {
+  font-size: clamp(1.3rem, 2.6vw, 2rem);
+  line-height: 1.35;
+  max-width: 24ch;
+  color: var(--fg);
+  margin-bottom: 1.5em;
+}
+
+.prose {
+  max-width: 60ch;
+  color: var(--fg-dim);
+}
+.prose p { margin-bottom: 1.2em; }
+
+/* Team grid (about) */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 3vw, 48px);
+  margin-top: clamp(48px, 8vh, 96px);
+}
+.team-photo {
+  aspect-ratio: 3 / 4;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-dim);
+  font-style: italic;
+}
+.team-name { margin-top: 12px; font-size: 1.1rem; }
+.team-role { color: var(--fg-dim); font-size: 0.9rem; }
+
+/* Clients / brands strip */
+.clients {
+  margin-top: clamp(64px, 10vh, 120px);
+}
+.clients h2 {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+  margin-bottom: 32px;
+}
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.client-cell {
+  background: var(--bg);
+  aspect-ratio: 2 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-dim);
+  font-style: italic;
+}
+
+/* Contact */
+.contact-big {
+  font-size: clamp(2rem, 7vw, 5rem);
+  font-weight: 600;
+  line-height: 1.1;
+}
+.contact-big a { border-bottom: 2px solid var(--accent); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 760px) {
+  .work-grid,
+  .team-grid,
+  .clients-grid { grid-template-columns: 1fr; }
+  .clients-grid { grid-template-columns: repeat(2, 1fr); }
+  .site-nav { gap: 18px; }
+  .footer-mark { font-size: 1.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; animation: none !important; }
+}
