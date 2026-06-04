@@ -7,33 +7,43 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="site-header">
-    <a class="wordmark" href="index.html">Mestiza</a>
-    <nav class="site-nav">
-      <a href="work.html">Work</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+
+  <header class="site-header is-scrolled" data-header>
+    <div class="header-left">
+      <a class="pill micro" href="index.html">
+        <span class="dot"></span><span class="label">Home</span>
+      </a>
+    </div>
+    <a class="header-logo" href="index.html" aria-label="Mestiza — home">
+      <img src="assets/logo/logo-horizontal-white.png" alt="Mestiza"
+           onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'wordmark-fallback\'>Mestiza</span>')" />
+    </a>
+    <div class="header-right">
+      <a class="pill micro" href="contact.html">
+        <span class="label">Get in touch</span><span aria-hidden="true">↗</span>
+      </a>
+    </div>
   </header>
 
   <main class="page">
-    <h1 class="page-title">About</h1>
+    <p class="page-kicker micro">About the studio</p>
+    <h1 class="page-title">Haz lo que<br><em>quieras</em> hacer.</h1>
 
-    <p class="lead">Haz lo que quieras hacer.</p>
+    <p class="lead">A creative studio for those who know exactly what they want.</p>
 
     <div class="prose">
       <p>
-        Mestiza is a creative studio based in São Paulo. We work across brand
-        identity, art direction and design — for companies that know what they
-        want and need someone to make it real.
+        <strong>Mestiza</strong> is a creative studio based in São Paulo, working
+        across brand identity, art direction and design. We partner with companies
+        that have a clear ambition and need someone to make it real.
       </p>
       <p>
-        We believe good work is direct. No filler, no formula. Just clarity,
-        craft and conviction in every project we take on.
+        We believe good work is direct. No filler, no formula — just clarity,
+        craft and conviction in everything we take on.
       </p>
     </div>
 
@@ -41,22 +51,22 @@
       <div>
         <div class="team-photo">Photo</div>
         <p class="team-name">Coming soon</p>
-        <p class="team-role">Founder / Creative Director</p>
+        <p class="team-role micro">Founder / Creative Director</p>
       </div>
       <div>
         <div class="team-photo">Photo</div>
         <p class="team-name">Coming soon</p>
-        <p class="team-role">Designer</p>
+        <p class="team-role micro">Designer</p>
       </div>
       <div>
         <div class="team-photo">Photo</div>
         <p class="team-name">Coming soon</p>
-        <p class="team-role">Art Director</p>
+        <p class="team-role micro">Art Director</p>
       </div>
     </div>
 
     <section class="clients">
-      <h2>Brands we've worked with</h2>
+      <h2 class="micro">Brands we've worked with</h2>
       <div class="clients-grid">
         <div class="client-cell">Brand</div>
         <div class="client-cell">Brand</div>
@@ -71,15 +81,31 @@
   </main>
 
   <footer class="site-footer">
-    <div class="footer-left">
-      <p class="footer-mark">Mestiza</p>
-      <p class="footer-note">Studio — ©2026</p>
+    <a class="footer-cta" href="mailto:hablar@mestiza.work">Let's talk ↗</a>
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4 class="micro">Studio</h4>
+        <p>Mestiza is a creative studio in São Paulo, Brazil.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="micro">Menu</h4>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4 class="micro">Elsewhere</h4>
+        <a href="#">Instagram ↗</a>
+        <a href="#">Behance ↗</a>
+        <a href="#">LinkedIn ↗</a>
+      </div>
     </div>
-    <div class="footer-right">
+    <div class="footer-bottom micro">
+      <span>Mestiza Studio © 2026</span>
+      <span>São Paulo, BR</span>
       <a href="mailto:hablar@mestiza.work">hablar@mestiza.work</a>
-      <a href="#">Instagram</a>
-      <a href="#">Behance</a>
     </div>
   </footer>
+
+  <script src="js/scroll-coin.js"></script>
 </body>
 </html>
