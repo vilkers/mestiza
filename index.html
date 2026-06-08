@@ -1,108 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mestiza — Studio</title>
-  <meta name="description" content="Mestiza is a creative studio working across brand identity, art direction and design." />
+  <title>Mestiza — em breve</title>
+  <meta name="description" content="Mestiza — creative studio. Site em construção." />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:    #000000;
+      --fg:    #f4f1ea;
+      --dim:   #8a867d;
+      --accent:#c9a86a;
+      --mono:  "Spline Sans Mono", ui-monospace, Menlo, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--mono);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100svh;
+      padding: 8vh 24px;
+      text-align: center;
+    }
+    .wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: clamp(28px, 6vh, 64px);
+      max-width: 560px;
+      width: 100%;
+    }
+
+    /* spinning coin gif (auto-hides if the file isn't there yet) */
+    .coin {
+      width: clamp(150px, 34vw, 240px);
+      height: auto;
+    }
+
+    /* horizontal wordmark, forced white on black */
+    .logo {
+      width: clamp(220px, 60vw, 380px);
+      height: auto;
+      filter: brightness(0) invert(1);
+    }
+
+    .status {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      color: var(--dim);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7em;
+    }
+    .status .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+
+    .mail {
+      font-size: clamp(0.95rem, 3.6vw, 1.15rem);
+      letter-spacing: 0.04em;
+      color: var(--fg);
+      border-bottom: 1px solid rgba(244,241,234,0.25);
+      padding-bottom: 4px;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .mail:hover { color: var(--accent); border-color: var(--accent); }
+    a { text-decoration: none; color: inherit; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .status .dot { animation: none; }
+    }
+  </style>
 </head>
 <body>
+  <main class="wrap">
+    <!-- spinning coin; hides itself until the gif lands in the repo -->
+    <img class="coin" src="assets/construction.gif" alt="Mestiza"
+         onerror="this.style.display='none'" />
 
-  <!-- ===== Header ===== -->
-  <header class="site-header" data-header>
-    <div class="header-left">
-      <a class="pill micro" href="about.html">
-        <span class="dot"></span><span class="label">About</span>
-      </a>
-    </div>
+    <!-- horizontal wordmark -->
+    <img class="logo" src="assets/logo/logo-horizontal.png" alt="Mestiza"
+         onerror="this.style.display='none'" />
 
-    <a class="header-logo" href="index.html" aria-label="Mestiza — home">
-      <img src="assets/logo/logo-horizontal-white.png" alt="Mestiza"
-           onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<span class=\'wordmark-fallback\'>Mestiza</span>')" />
-    </a>
+    <p class="status"><span class="dot"></span>Em construção</p>
 
-    <div class="header-right">
-      <a class="pill micro" href="contact.html">
-        <span class="label">Get in touch</span><span aria-hidden="true">↗</span>
-      </a>
-    </div>
-  </header>
-
-  <!-- ===== Stage: pinned coin + scrolling concept ===== -->
-  <main>
-    <section class="stage" data-stage>
-
-      <!-- coin pinned at viewport center for the whole stage -->
-      <div class="coin-pin" aria-hidden="true">
-        <div class="coin" data-coin>
-          <img class="coin-frame" data-coin-img src="assets/coin/coin_001.png" alt="" />
-          <img class="coin-fallback" src="assets/logo/logo-site-flat.png" alt="" />
-        </div>
-      </div>
-
-      <!-- concept headline; coin rests in the gap -->
-      <div class="hero-head">
-        <h1 class="concept">
-          <span class="l">Haz</span>
-          <span class="l">lo que</span>
-        </h1>
-        <h1 class="concept">
-          <span class="l"><em>quieras</em></span>
-          <span class="l">hacer</span>
-        </h1>
-      </div>
-
-      <!-- image feed scrolling past the coin -->
-      <div class="stage-feed" data-feed>
-        <!-- images are injected by js when assets/work/01.jpg … exist -->
-        <div class="feed-item"><div class="feed-ph">Feed image 01</div></div>
-        <div class="feed-item"><div class="feed-ph">Feed image 02</div></div>
-        <div class="feed-item"><div class="feed-ph">Feed image 03</div></div>
-        <div class="feed-item"><div class="feed-ph">Feed image 04</div></div>
-      </div>
-
-      <!-- closing statement settles over the feed -->
-      <div class="stage-statement">
-        <p>A creative studio working across brand identity, art direction and design — for those who know <em>exactly</em> what they want.</p>
-      </div>
-
-    </section>
+    <a class="mail" href="mailto:hablar@mestiza.work">hablar@mestiza.work</a>
   </main>
-
-  <!-- ===== Footer ===== -->
-  <footer class="site-footer">
-    <a class="footer-cta" href="mailto:hablar@mestiza.work">Let's talk ↗</a>
-
-    <div class="footer-cols">
-      <div class="footer-col">
-        <h4 class="micro">Studio</h4>
-        <p>Mestiza is a creative studio in São Paulo, Brazil.</p>
-      </div>
-      <div class="footer-col">
-        <h4 class="micro">Menu</h4>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <div class="footer-col">
-        <h4 class="micro">Elsewhere</h4>
-        <a href="#">Instagram ↗</a>
-        <a href="#">Behance ↗</a>
-        <a href="#">LinkedIn ↗</a>
-      </div>
-    </div>
-
-    <div class="footer-bottom micro">
-      <span>Mestiza Studio © 2026</span>
-      <span>São Paulo, BR</span>
-      <a href="mailto:hablar@mestiza.work">hablar@mestiza.work</a>
-    </div>
-  </footer>
-
-  <script src="js/scroll-coin.js"></script>
 </body>
 </html>
