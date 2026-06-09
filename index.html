@@ -17,6 +17,7 @@
       --accent:#c9a86a;
       --mono:  "Spline Sans Mono", ui-monospace, Menlo, monospace;
       --serif: "STIX Two Text", Georgia, serif;
+      --gap:   clamp(12px, 1.4vw, 22px);   /* mesmo espaçamento h e v */
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
@@ -39,7 +40,7 @@
       z-index: 0;
       overflow: hidden;
       display: flex;
-      gap: clamp(6px, 0.7vw, 12px);
+      gap: var(--gap);
       pointer-events: none;
     }
     .bg-col {
@@ -47,7 +48,7 @@
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: clamp(24px, 5vh, 64px);      /* espaçadas */
+      gap: var(--gap);                  /* vertical = horizontal */
       will-change: transform;
     }
     .bg-col img {
@@ -59,8 +60,6 @@
     .bg-col--a { animation: driftUp   95s linear infinite; }
     .bg-col--b { animation: driftDown 120s linear infinite; }
     .bg-col--c { animation: driftUp   105s linear infinite; }
-    .bg-col--d { animation: driftDown 135s linear infinite; }
-    .bg-col--e { animation: driftUp   115s linear infinite; }
     @keyframes driftUp   { from { transform: translateY(0); }    to { transform: translateY(-50%); } }
     @keyframes driftDown { from { transform: translateY(-50%); } to { transform: translateY(0); } }
 
@@ -139,13 +138,7 @@
       .bg-col { animation: none !important; }
       .status .dot { animation: none; }
     }
-    @media (max-width: 1100px) {
-      .bg-col--e { display: none; }     /* 4 cols */
-    }
-    @media (max-width: 820px) {
-      .bg-col--d { display: none; }     /* 3 cols */
-    }
-    @media (max-width: 560px) {
+    @media (max-width: 640px) {
       .bg-col--c { display: none; }     /* 2 cols on phones */
     }
   </style>
@@ -178,8 +171,8 @@
         paths.push("assets/bg/" + (n < 10 ? "0" + n : n) + ".jpg");
       }
 
-      var cols = 5, perCol = 4, k = 0;
-      var buckets = [[], [], [], [], []];
+      var cols = 3, perCol = 5, k = 0;
+      var buckets = [[], [], []];
       for (var c = 0; c < cols; c++) {
         for (var j = 0; j < perCol; j++) {
           buckets[c].push(paths[k % paths.length]);   // cycle so each col is tall + varied
@@ -187,7 +180,7 @@
         }
       }
 
-      var names = ["a", "b", "c", "d", "e"];
+      var names = ["a", "b", "c"];
       var bg = document.getElementById("bg");
       buckets.forEach(function (list, ci) {
         var col = document.createElement("div");
