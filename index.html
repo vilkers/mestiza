@@ -32,35 +32,36 @@
       position: relative;
     }
 
-    /* ===== drifting image background ===== */
+    /* ===== drifting image background — 5 full-bleed columns ===== */
     .bg {
       position: fixed;
       inset: 0;
       z-index: 0;
       overflow: hidden;
       display: flex;
-      justify-content: center;
-      gap: clamp(16px, 4vw, 64px);
-      padding: 0 clamp(16px, 4vw, 64px);
+      gap: clamp(6px, 0.7vw, 12px);
       pointer-events: none;
     }
     .bg-col {
-      flex: 1 1 0;
-      max-width: 420px;
+      flex: 1 1 0;                       /* equal cols → full width */
+      min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: clamp(40px, 9vh, 120px);     /* "distanciadas" — espaçadas */
+      gap: clamp(24px, 5vh, 64px);      /* espaçadas */
       will-change: transform;
     }
     .bg-col img {
       width: 100%;
-      height: auto;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;                /* crop leve nas laterais */
       opacity: 0.6;                     /* contraste no fundo preto */
       border-radius: 2px;
     }
-    .bg-col--a { animation: driftUp   90s linear infinite; }
-    .bg-col--b { animation: driftDown 110s linear infinite; }
-    .bg-col--c { animation: driftUp   100s linear infinite; }
+    .bg-col--a { animation: driftUp   95s linear infinite; }
+    .bg-col--b { animation: driftDown 120s linear infinite; }
+    .bg-col--c { animation: driftUp   105s linear infinite; }
+    .bg-col--d { animation: driftDown 135s linear infinite; }
+    .bg-col--e { animation: driftUp   115s linear infinite; }
     @keyframes driftUp   { from { transform: translateY(0); }    to { transform: translateY(-50%); } }
     @keyframes driftDown { from { transform: translateY(-50%); } to { transform: translateY(0); } }
 
@@ -130,17 +131,23 @@
       text-transform: lowercase;
       text-align: center;
       color: var(--fg);
-      font-size: clamp(0.85rem, 2.6vw, 1.5rem);
-      letter-spacing: clamp(0.18em, 0.6vw, 0.5em);
-      padding: 0 24px clamp(28px, 5vh, 52px);
+      font-size: clamp(0.66rem, 1.8vw, 1.05rem);
+      letter-spacing: clamp(0.16em, 0.5vw, 0.42em);
+      padding: 0 24px clamp(22px, 4vh, 40px);
     }
 
     @media (prefers-reduced-motion: reduce) {
       .bg-col { animation: none !important; }
       .status .dot { animation: none; }
     }
-    @media (max-width: 680px) {
-      .bg-col--c { display: none; }     /* 2 columns on phones */
+    @media (max-width: 1100px) {
+      .bg-col--e { display: none; }     /* 4 cols */
+    }
+    @media (max-width: 820px) {
+      .bg-col--d { display: none; }     /* 3 cols */
+    }
+    @media (max-width: 560px) {
+      .bg-col--c { display: none; }     /* 2 cols on phones */
     }
   </style>
 </head>
@@ -164,17 +171,24 @@
   <footer class="tagline">haz lo que quieras hacer</footer>
 
   <script>
-    // Curated dark/cinematic frames, drifting in 3 columns.
+    // Curated dark/cinematic frames (lightweight), drifting in 5 columns.
     (function () {
-      var nums = [6, 17, 4, 16, 15, 5, 26, 10, 23, 21, 18];
-      var paths = nums.map(function (n) {
-        return "assets/work/" + (n < 10 ? "0" + n : n) + ".jpg";
-      });
+      var COUNT = 11;                       // assets/bg/01.jpg … 11.jpg
+      var paths = [];
+      for (var n = 1; n <= COUNT; n++) {
+        paths.push("assets/bg/" + (n < 10 ? "0" + n : n) + ".jpg");
+      }
 
-      var cols = 3, buckets = [[], [], []];
-      paths.forEach(function (p, i) { buckets[i % cols].push(p); });
+      var cols = 5, perCol = 4, k = 0;
+      var buckets = [[], [], [], [], []];
+      for (var c = 0; c < cols; c++) {
+        for (var j = 0; j < perCol; j++) {
+          buckets[c].push(paths[k % paths.length]);   // cycle so each col is tall + varied
+          k++;
+        }
+      }
 
-      var names = ["a", "b", "c"];
+      var names = ["a", "b", "c", "d", "e"];
       var bg = document.getElementById("bg");
       buckets.forEach(function (list, ci) {
         var col = document.createElement("div");
