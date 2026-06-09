@@ -160,7 +160,6 @@
 
   <script>
     (function () {
-      // ---- build image feed: all 38 images, distributed round-robin across 3 cols ----
       var COUNT = 38;
       var paths = [];
       for (var n = 1; n <= COUNT; n++) {
@@ -168,65 +167,89 @@
       }
 
       var colEls = [];
+      var allImgs = [];
       var bg = document.getElementById('bg');
-      // Each column gets ALL 38 images, but starting at a different offset
-      // so they don't look synchronised. Loop is 38 images long → much less visible repeat.
       var offsets = [0, 13, 26];
+
       offsets.forEach(function (offset) {
         var list = paths.slice(offset).concat(paths.slice(0, offset));
         var col = document.createElement('div');
         col.className = 'bg-col';
-        list.concat(list).forEach(function (src) {  // duplicate for seamless -50% loop
+        list.concat(list).forEach(function (src) {
           var img = new Image();
           img.src = src;
           img.alt = '';
-          img.loading = 'lazy';
+          img.decoding = 'async';   // eager (default), sem lazy
           col.appendChild(img);
+          allImgs.push(img);
         });
         bg.appendChild(col);
         colEls.push(col);
       });
 
-      // ---- JS-driven drift: reactive to mouse wheel / touch ----
       var noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (noMotion) return;
 
-      // base speeds in % per frame @ 60 fps  (negative = drift up)
-      var BASE = [-50 / (58 * 60), 50 / (72 * 60), -50 / (64 * 60)];
-      var pos  = [0, -50, -18];  // staggered start positions
-      var vel  = 1;              // speed multiplier (1 = normal, >1 = boosted)
-      var MAX  = 14;             // teto do boost
+      // Espera imagens carregarem para a altura das colunas estabilizar,
+      // depois usa px fixos — elimina o "pisca" do wrap com % dinâmico.
+      var loadedCount = 0;
+      var started = false;
 
-      // mouse wheel boost — responde à intensidade da rolagem
-      window.addEventListener('wheel', function (e) {
-        vel = Math.min(vel + Math.abs(e.deltaY) / 28 + 0.8, MAX);
-      }, { passive: true });
+      function tryStart() {
+        if (started) return;
+        started = true;
+        startAnim();
+      }
 
-      // touch boost (mobile)
-      var lastTouchY = 0;
-      window.addEventListener('touchstart', function (e) {
-        lastTouchY = e.touches[0].clientY;
-      }, { passive: true });
-      window.addEventListener('touchmove', function (e) {
-        var dy = Math.abs(e.touches[0].clientY - lastTouchY);
-        lastTouchY = e.touches[0].clientY;
-        vel = Math.min(vel + dy / 22 + 0.6, MAX);
-      }, { passive: true });
+      allImgs.forEach(function (img) {
+        if (img.complete) { loadedCount++; if (loadedCount === allImgs.length) tryStart(); }
+        else { img.onload = img.onerror = function () { loadedCount++; if (loadedCount === allImgs.length) tryStart(); }; }
+      });
+      // fallback: inicia em 2s mesmo que nem tudo tenha carregado
+      setTimeout(tryStart, 2000);
 
-      function tick() {
-        // momentum: desacelera suave de volta ao ritmo normal
-        vel = 1 + (vel - 1) * 0.94;
+      function startAnim() {
+        // Mede a metade exata de cada coluna em pixels
+        var halfH = colEls.map(function (c) { return c.scrollHeight / 2; });
 
-        for (var i = 0; i < 3; i++) {
-          pos[i] += BASE[i] * vel;
-          // seamless wrap: driftUp wraps at -50%, driftDown wraps at 0%
-          if (BASE[i] < 0 && pos[i] <= -50) pos[i] += 50;
-          if (BASE[i] > 0 && pos[i] >= 0)   pos[i] -= 50;
-          colEls[i].style.transform = 'translateY(' + pos[i] + '%)';
+        // Velocidades em px/frame @ 60fps (negativo = sobe)
+        var spd = [
+          -(halfH[0] * 2) / (58 * 60),
+          (halfH[1] * 2) / (72 * 60),
+          -(halfH[2] * 2) / (64 * 60)
+        ];
+
+        // Posições iniciais em px (staggered)
+        var px = [0, -halfH[1], -Math.round(halfH[2] * 0.36)];
+
+        var vel = 1;
+        var MAX = 14;
+
+        window.addEventListener('wheel', function (e) {
+          vel = Math.min(vel + Math.abs(e.deltaY) / 28 + 0.8, MAX);
+        }, { passive: true });
+
+        var lastTouchY = 0;
+        window.addEventListener('touchstart', function (e) { lastTouchY = e.touches[0].clientY; }, { passive: true });
+        window.addEventListener('touchmove', function (e) {
+          var dy = Math.abs(e.touches[0].clientY - lastTouchY);
+          lastTouchY = e.touches[0].clientY;
+          vel = Math.min(vel + dy / 22 + 0.6, MAX);
+        }, { passive: true });
+
+        function tick() {
+          vel = 1 + (vel - 1) * 0.94;
+          for (var i = 0; i < 3; i++) {
+            px[i] += spd[i] * vel;
+            // wrap sem pisca: usa halfH fixo medido depois do load
+            if (spd[i] < 0 && px[i] <= -halfH[i]) px[i] += halfH[i];
+            if (spd[i] > 0 && px[i] >= 0)          px[i] -= halfH[i];
+            colEls[i].style.transform = 'translateY(' + px[i] + 'px)';
+          }
+          requestAnimationFrame(tick);
         }
         requestAnimationFrame(tick);
       }
-      requestAnimationFrame(tick);
     })();
   </script>
 </body>
