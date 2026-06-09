@@ -17,7 +17,7 @@
       --accent:#c9a86a;
       --mono:  "Spline Sans Mono", ui-monospace, Menlo, monospace;
       --serif: "STIX Two Text", Georgia, serif;
-      --gap:   clamp(12px, 1.4vw, 22px);   /* mesmo espaçamento h e v */
+      --gap:   clamp(12px, 1.4vw, 22px);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
@@ -29,11 +29,11 @@
       min-height: 100svh;
       display: flex;
       flex-direction: column;
-      overflow: hidden;                 /* page itself doesn't scroll */
+      overflow: hidden;
       position: relative;
     }
 
-    /* ===== drifting image background — 5 full-bleed columns ===== */
+    /* ===== drifting image background — 3 columns ===== */
     .bg {
       position: fixed;
       inset: 0;
@@ -44,24 +44,19 @@
       pointer-events: none;
     }
     .bg-col {
-      flex: 1 1 0;                       /* equal cols → full width */
+      flex: 1 1 0;
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: var(--gap);                  /* vertical = horizontal */
+      gap: var(--gap);
       will-change: transform;
     }
     .bg-col img {
       width: 100%;
-      height: auto;                     /* ratio original de cada imagem */
-      opacity: 0.6;                     /* contraste no fundo preto */
+      height: auto;
+      opacity: 0.6;
       border-radius: 2px;
     }
-    .bg-col--a { animation: driftUp   95s linear infinite; }
-    .bg-col--b { animation: driftDown 120s linear infinite; }
-    .bg-col--c { animation: driftUp   105s linear infinite; }
-    @keyframes driftUp   { from { transform: translateY(0); }    to { transform: translateY(-50%); } }
-    @keyframes driftDown { from { transform: translateY(-50%); } to { transform: translateY(0); } }
 
     /* center scrim so the logo / email stay readable */
     .scrim {
@@ -135,11 +130,10 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .bg-col { animation: none !important; }
       .status .dot { animation: none; }
     }
     @media (max-width: 640px) {
-      .bg-col--c { display: none; }     /* 2 cols on phones */
+      .bg-col:nth-child(3) { display: none; }
     }
   </style>
 </head>
@@ -163,38 +157,72 @@
   <footer class="tagline">haz lo que quieras hacer</footer>
 
   <script>
-    // Curated dark/cinematic frames (lightweight), drifting in 5 columns.
     (function () {
-      var COUNT = 11;                       // assets/bg/01.jpg … 11.jpg
+      // ---- build image feed: all 38 images, distributed round-robin across 3 cols ----
+      var COUNT = 38;
       var paths = [];
       for (var n = 1; n <= COUNT; n++) {
-        paths.push("assets/bg/" + (n < 10 ? "0" + n : n) + ".jpg");
+        paths.push('assets/bg/' + (n < 10 ? '0' + n : n) + '.jpg');
       }
 
-      var cols = 3, perCol = 5, k = 0;
+      var colEls = [];
+      var bg = document.getElementById('bg');
       var buckets = [[], [], []];
-      for (var c = 0; c < cols; c++) {
-        for (var j = 0; j < perCol; j++) {
-          buckets[c].push(paths[k % paths.length]);   // cycle so each col is tall + varied
-          k++;
-        }
-      }
+      paths.forEach(function (p, i) { buckets[i % 3].push(p); });
 
-      var names = ["a", "b", "c"];
-      var bg = document.getElementById("bg");
       buckets.forEach(function (list, ci) {
-        var col = document.createElement("div");
-        col.className = "bg-col bg-col--" + names[ci];
-        // duplicate the list so the vertical loop is seamless (-50%)
-        list.concat(list).forEach(function (src) {
+        var col = document.createElement('div');
+        col.className = 'bg-col';
+        list.concat(list).forEach(function (src) {  // duplicate for seamless -50% loop
           var img = new Image();
           img.src = src;
-          img.alt = "";
-          img.loading = "lazy";
+          img.alt = '';
+          img.loading = 'lazy';
           col.appendChild(img);
         });
         bg.appendChild(col);
+        colEls.push(col);
       });
+
+      // ---- JS-driven drift: reactive to mouse wheel / touch ----
+      var noMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (noMotion) return;
+
+      // base speeds in % per frame @ 60 fps  (negative = drift up)
+      var BASE = [-50 / (95 * 60), 50 / (120 * 60), -50 / (105 * 60)];
+      var pos  = [0, -50, -18];  // staggered start positions
+      var vel  = 1;              // speed multiplier (1 = normal, >1 = boosted)
+
+      // mouse wheel boost
+      window.addEventListener('wheel', function (e) {
+        vel = Math.min(vel + Math.abs(e.deltaY) / 60 + 0.4, 7);
+      }, { passive: true });
+
+      // touch boost (mobile)
+      var lastTouchY = 0;
+      window.addEventListener('touchstart', function (e) {
+        lastTouchY = e.touches[0].clientY;
+      }, { passive: true });
+      window.addEventListener('touchmove', function (e) {
+        var dy = Math.abs(e.touches[0].clientY - lastTouchY);
+        lastTouchY = e.touches[0].clientY;
+        vel = Math.min(vel + dy / 40 + 0.3, 7);
+      }, { passive: true });
+
+      function tick() {
+        // decay multiplier back to 1 each frame
+        vel = 1 + (vel - 1) * 0.95;
+
+        for (var i = 0; i < 3; i++) {
+          pos[i] += BASE[i] * vel;
+          // seamless wrap: driftUp wraps at -50%, driftDown wraps at 0%
+          if (BASE[i] < 0 && pos[i] <= -50) pos[i] += 50;
+          if (BASE[i] > 0 && pos[i] >= 0)   pos[i] -= 50;
+          colEls[i].style.transform = 'translateY(' + pos[i] + '%)';
+        }
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
     })();
   </script>
 </body>
