@@ -1,7 +1,7 @@
 # Mestiza Studio — Contexto do Projeto
 
 ## O que é isso
-Site + identidade digital do **Mestiza**, um studio criativo. Este repositório hospeda o site no GitHub Pages.
+Site + identidade digital do **Mestiza**, um studio criativo. Este repositório hospeda o site no GitHub Pages em **mestiza.work** (já no ar).
 
 Contato principal: `vilkervs@gmail.com` / Vilker Silva
 
@@ -11,146 +11,106 @@ Contato principal: `vilkervs@gmail.com` / Vilker Silva
 
 | Tópico | Decisão |
 |---|---|
-| Domínio | `mestiza.work` na GoDaddy (.ai ficou caro — mínimo 2 anos ~US$160) |
-| Email | `hablar@mestiza.work` via **Google Workspace Business Starter** (~US$7/mês) |
-| Hospedagem | **GitHub Pages** — branch `main`, pasta raiz ou `/docs` |
-| Referência visual | [Gentle Cowboys](https://www.gentlecowboys.com/about) — estrutura similar, layout diferente para não parecer cópia |
-| Hero element | Moeda animada girando conforme o scroll (image sequence on scroll, estilo Apple) |
-| Conteúdo 1ª versão | **Lorem ipsum** — estrutura real, texto provisório |
-| Assets locais | Estão em `/Users/vilker.silva/Documents/ClaudeProjects/_mestiza` na máquina do Vilker. Para usar no site, precisam ser **commitados no repositório** |
+| Domínio | `mestiza.work` na GoDaddy |
+| Email | `hablar@mestiza.work` via Google Workspace Business Starter |
+| Hospedagem | GitHub Pages — branch `main`, pasta raiz |
+| Stack | HTML/CSS/JS puro, sem frameworks, sem build step |
+| Tipografia | **STIX Two Text** (serif) em toda a página; **Spline Sans Mono** disponível mas não usada no momento |
+| Cores | `--bg:#000000` `--fg:#f4f1ea` (off-white) `--dim:#8a867d` `--accent:#c9a86a` |
+| Logo | `assets/logo/logo-horizontal.png` — renderizada com `filter: brightness(0) invert(1) brightness(0.96) sepia(0.07)` (off-white) |
+| Assets locais do Vilker | `/Users/vilker.silva/Documents/ClaudeProjects/_mestiza` — precisam ser commitados pro repo |
 
 ---
 
-## Assets necessários (Vilker precisa subir)
+## Estado atual do site (junho 2026)
 
-- `coin.png` — PNG flat da moeda, fundo transparente
-- `studio-flat.png` — PNG flat do studio logo
-- Frames da moeda girando (se já tiver, ou a gente gera)
-- Fotos da equipe (seção About)
-- PNGs de portfolio (projetos)
-- Logos de marcas que o studio já trabalhou
+**mestiza.work está no ar** com uma página "em construção" (`index.html`).
 
-> **Como subir:** arraste os arquivos pro repositório `vilkers/mestiza` pela interface do GitHub, ou use `git add` localmente.
+### O que a página tem:
+- Fundo: 3 colunas de imagens drifting (38 fotos em `assets/bg/`), drift bem lento (~10 min/ciclo), acelera ao rolar o mouse/trackpad
+- Centro: logo off-white + "em construção" + `hablar@mestiza.work`
+- Rodapé: "haz lo que quieras hacer" em STIX Two Text com letter-spacing largo
+- Animação: JS/RAF time-based (px/ms, independente de Hz do monitor), sem CSS animations
+- Loop sem pisca: imagens eager-loaded, posição em px fixos medidos após load
 
----
-
-## Estrutura do site (planejada)
-
+### Arquivos relevantes:
 ```
-/
-├── index.html          # Home — hero com moeda animada
-├── about.html          # Sobre o studio + fotos da equipe
-├── work.html           # Portfolio — grid de projetos
-├── contact.html        # Contato simples
-├── css/
-│   └── style.css
-├── js/
-│   └── scroll-coin.js  # Lógica de image sequence on scroll
-├── assets/
-│   ├── coin/           # Frames da moeda (coin_000.png … coin_059.png)
-│   ├── logo/           # Logotipo SVG/PNG
-│   ├── team/           # Fotos da equipe
-│   └── work/           # Imagens dos projetos
-└── CLAUDE.md           # Este arquivo
+index.html               # página em construção (LIVE)
+home-draft.html          # rascunho da homepage real (para Fase 3+)
+assets/
+  bg/01-38.jpg           # 38 fotos redimensionadas 900px q72 (~1.8MB total) — fundo animado
+  work/01-38.jpg         # originais organizados (reserva para o site real)
+  logo/logo-horizontal.png
+  inbox/README.md        # pasta de upload — arraste assets aqui
+tools/
+  otimizar-imagens.jsx   # script Photoshop para batch resize (MAX_EDGE=2000, JPEG q9)
+CNAME                    # mestiza.work
 ```
 
----
-
-## Seções do site
-
-### Home (`index.html`)
-- Hero full-height: moeda animada no centro, nome "Mestiza" abaixo, tagline curta
-- Moeda gira conforme o scroll (image sequence — sem vídeo, mais leve e controlável)
-
-### About
-- Parágrafo curto sobre o studio (sem bullshit, direto)
-- Fotos + mini-bio da equipe
-- Logos das marcas que já trabalharam
-
-### Work
-- Grid de projetos: imagem + título + categoria
-- Clique expande ou leva pra página individual (fase 2)
-
-### Contact
-- Apenas o email `hablar@mestiza.work` e redes sociais
-- Sem formulário por enquanto
+### Detalhes técnicos da animação (index.html):
+- 3 colunas, cada uma com 38 imagens + 38 duplicadas (para loop seamless)
+- Offsets de início: col 0 = img 1, col 1 = img 14, col 2 = img 27
+- Velocidade base: 600s / 720s / 660s por ciclo (bem devagar)
+- Boost no scroll: `vel = Math.min(vel + |deltaY| / 60 + 0.6, 10)`, decai com `0.94^(dt/16.67)`
+- Wrapping: `if (spd < 0 && px <= -halfH) px += halfH` (e vice-versa para coluna que desce)
 
 ---
 
-## Técnica da moeda animada (scroll)
+## Assets pendentes (Vilker precisa subir em `assets/inbox/`)
 
-Não usar vídeo. Usar **image sequence on scroll**:
-1. Gerar N frames do PNG da moeda girando (60–120 frames, PNG com transparência)
-2. Carregar todos via JS, trocar o frame conforme `scrollY`
-3. Moeda fica "pinned" no topo enquanto o conteúdo passa
-4. Resultado: rotação fluida e totalmente controlada pelo usuário
-
-Para gerar os frames:
-- Opção A: Vilker exporta de ferramenta 3D/After Effects
-- Opção B: CSS 3D transform puro (mais leve, funciona se o logo for flat/simples)
-- Opção C: Magnific MCP (avaliar quando os assets chegarem)
-
----
-
-## Setup de infraestrutura (pendente — Vilker executa)
-
-### 1. Registrar `mestiza.work` na GoDaddy
-- Recusar todos os upsells (email, website builder, proteção premium)
-- Só WHOIS Privacy se for barato
-
-### 2. Google Workspace Business Starter
-- Assinar em `workspace.google.com`, NÃO pelo botão da GoDaddy
-- Criar conta como `hablar@mestiza.work`
-- Plano Flexible (mensal) para começar
-
-### 3. DNS na GoDaddy (após ativar Workspace)
-```
-# Verificação de domínio Google
-TXT  @  google-site-verification=<código do Google>
-
-# MX (receber email)
-MX  @  prioridade:1  smtp.google.com
-
-# SPF (envio autorizado)
-TXT  @  v=spf1 include:_spf.google.com ~all
-
-# DKIM — gerar no Admin Console > Gmail > Authenticate email
-TXT  google._domainkey  v=DKIM1; k=rsa; p=<chave>
-
-# DMARC (modo observação)
-TXT  _dmarc  v=DMARC1; p=none; rua=mailto:hablar@mestiza.work
-```
-
-### 4. Teste de entregabilidade
-- Enviar email de teste e checar em `mail-tester.com`
-
----
-
-## Assinatura de email (pendente — aguardando dados do Vilker)
-Precisa de: nome/cargo, telefone (se quiser expor), redes do studio.
-Será entregue em HTML para colar no Gmail (Configurações → Assinatura).
+- **GIF da moeda** (`mestiza-coin-spin-2`) — ainda não subido. Quando chegar: extrair frames, remover fundo escuro (luminance key + feather), re-encodar como animated WebP com transparência, apontar `.coin` img src.
+- Fotos da equipe
+- Logos de marcas clientes
+- PNGs de portfolio
 
 ---
 
 ## Fases do projeto
 
 - [x] **Fase 0:** Decisões de domínio, email, hospedagem
-- [ ] **Fase 1:** Setup domínio + Google Workspace (Vilker executa, Claude apoia)
+- [x] **Fase 3:** Página em construção no ar (mestiza.work)
+- [ ] **Fase 1:** Setup Google Workspace (Vilker executa)
 - [ ] **Fase 2:** Assinatura de email HTML
-- [ ] **Fase 3:** Site esqueleto em lorem ipsum no GitHub Pages
-- [ ] **Fase 4:** Assets chegam → integração real (moeda animada, fotos, logos)
-- [ ] **Fase 5:** Textos reais (sobre o studio, bio da equipe, projetos)
-- [ ] **Fase 6:** Domínio customizado apontando pro GitHub Pages
+- [ ] **Fase 4:** Assets chegam → GIF da moeda, fotos, logos integrados
+- [ ] **Fase 5:** Site real (home com moeda animada, about, work, contact)
+- [ ] **Fase 6:** Textos reais
 
 ---
 
-## Stack do site
-- HTML/CSS/JS puro (sem frameworks — site pequeno, hospedagem estática no GitHub Pages)
-- Sem build step, sem dependências
-- Google Fonts (tipografia a definir conforme identidade visual)
-- Nenhum cookie, nenhum tracker por enquanto
+## Estrutura planejada do site real
+
+```
+/
+├── index.html      # Home — hero com moeda animada no scroll (image sequence)
+├── about.html      # Studio + equipe + logos de clientes
+├── work.html       # Grid de projetos
+├── contact.html    # Só o email + redes
+├── css/style.css
+├── js/scroll-coin.js
+└── assets/
+    ├── coin/       # Frames PNG da moeda (coin_000.png … coin_059.png)
+    ├── logo/
+    ├── team/
+    └── work/
+```
+
+### Hero da home (planejado)
+- Moeda animada girando conforme o scroll (image sequence, estilo Apple — sem vídeo)
+- Moeda "pinned" enquanto o conteúdo passa
+- Frames: 60–120 PNGs com transparência
 
 ---
 
 ## Branch de trabalho
-`claude/youthful-maxwell-4f05x` → merge em `main` quando pronto para ir ao ar
+`claude/youthful-maxwell-4f05x` → merge em `main` para publicar
+
+**Workflow de publicação:**
+```bash
+git add <arquivos>
+git commit -m "mensagem"
+git checkout main
+git merge claude/youthful-maxwell-4f05x --no-edit
+git push -u origin main
+git checkout claude/youthful-maxwell-4f05x
+git push -u origin claude/youthful-maxwell-4f05x
+```
