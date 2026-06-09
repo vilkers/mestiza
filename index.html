@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:wght@400;500&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg:    #000000;
@@ -16,6 +16,7 @@
       --dim:   #8a867d;
       --accent:#c9a86a;
       --mono:  "Spline Sans Mono", ui-monospace, Menlo, monospace;
+      --serif: "STIX Two Text", Georgia, serif;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
@@ -24,35 +25,76 @@
       color: var(--fg);
       font-family: var(--mono);
       -webkit-font-smoothing: antialiased;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       min-height: 100svh;
-      padding: 8vh 24px;
-      text-align: center;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;                 /* page itself doesn't scroll */
+      position: relative;
     }
+
+    /* ===== drifting image background ===== */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      gap: clamp(16px, 4vw, 64px);
+      padding: 0 clamp(16px, 4vw, 64px);
+      pointer-events: none;
+    }
+    .bg-col {
+      flex: 1 1 0;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      gap: clamp(40px, 9vh, 120px);     /* "distanciadas" — espaçadas */
+      will-change: transform;
+    }
+    .bg-col img {
+      width: 100%;
+      height: auto;
+      opacity: 0.6;                     /* contraste no fundo preto */
+      border-radius: 2px;
+    }
+    .bg-col--a { animation: driftUp   90s linear infinite; }
+    .bg-col--b { animation: driftDown 110s linear infinite; }
+    .bg-col--c { animation: driftUp   100s linear infinite; }
+    @keyframes driftUp   { from { transform: translateY(0); }    to { transform: translateY(-50%); } }
+    @keyframes driftDown { from { transform: translateY(-50%); } to { transform: translateY(0); } }
+
+    /* center scrim so the logo / email stay readable */
+    .scrim {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      background: radial-gradient(ellipse 70% 60% at center,
+                  rgba(0,0,0,0.86) 0%,
+                  rgba(0,0,0,0.58) 45%,
+                  rgba(0,0,0,0.40) 100%);
+    }
+
+    /* ===== centered content ===== */
     .wrap {
+      position: relative;
+      z-index: 2;
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: clamp(28px, 6vh, 64px);
-      max-width: 560px;
-      width: 100%;
+      justify-content: center;
+      gap: clamp(26px, 5.5vh, 56px);
+      padding: 12vh 24px 4vh;
+      text-align: center;
     }
-
-    /* spinning coin gif (auto-hides if the file isn't there yet) */
-    .coin {
-      width: clamp(150px, 34vw, 240px);
-      height: auto;
-    }
-
-    /* horizontal wordmark, forced white on black */
+    .coin { width: clamp(140px, 30vw, 220px); height: auto; }
     .logo {
-      width: clamp(220px, 60vw, 380px);
+      width: clamp(220px, 56vw, 360px);
       height: auto;
       filter: brightness(0) invert(1);
     }
-
     .status {
       font-size: 0.72rem;
       text-transform: uppercase;
@@ -68,7 +110,6 @@
       animation: pulse 2s ease-in-out infinite;
     }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
-
     .mail {
       font-size: clamp(0.95rem, 3.6vw, 1.15rem);
       letter-spacing: 0.04em;
@@ -80,24 +121,75 @@
     .mail:hover { color: var(--accent); border-color: var(--accent); }
     a { text-decoration: none; color: inherit; }
 
+    /* ===== footer tagline ===== */
+    .tagline {
+      position: relative;
+      z-index: 2;
+      font-family: var(--serif);
+      font-weight: 400;
+      text-transform: lowercase;
+      text-align: center;
+      color: var(--fg);
+      font-size: clamp(0.85rem, 2.6vw, 1.5rem);
+      letter-spacing: clamp(0.18em, 0.6vw, 0.5em);
+      padding: 0 24px clamp(28px, 5vh, 52px);
+    }
+
     @media (prefers-reduced-motion: reduce) {
+      .bg-col { animation: none !important; }
       .status .dot { animation: none; }
+    }
+    @media (max-width: 680px) {
+      .bg-col--c { display: none; }     /* 2 columns on phones */
     }
   </style>
 </head>
 <body>
+
+  <!-- drifting image feed -->
+  <div class="bg" id="bg" aria-hidden="true"></div>
+  <div class="scrim" aria-hidden="true"></div>
+
+  <!-- centered content -->
   <main class="wrap">
-    <!-- spinning coin; hides itself until the gif lands in the repo -->
     <img class="coin" src="assets/construction.gif" alt="Mestiza"
          onerror="this.style.display='none'" />
-
-    <!-- horizontal wordmark -->
     <img class="logo" src="assets/logo/logo-horizontal.png" alt="Mestiza"
          onerror="this.style.display='none'" />
-
     <p class="status"><span class="dot"></span>Em construção</p>
-
     <a class="mail" href="mailto:hablar@mestiza.work">hablar@mestiza.work</a>
   </main>
+
+  <!-- footer tagline -->
+  <footer class="tagline">haz lo que quieras hacer</footer>
+
+  <script>
+    // Curated dark/cinematic frames, drifting in 3 columns.
+    (function () {
+      var nums = [6, 17, 4, 16, 15, 5, 26, 10, 23, 21, 18];
+      var paths = nums.map(function (n) {
+        return "assets/work/" + (n < 10 ? "0" + n : n) + ".jpg";
+      });
+
+      var cols = 3, buckets = [[], [], []];
+      paths.forEach(function (p, i) { buckets[i % cols].push(p); });
+
+      var names = ["a", "b", "c"];
+      var bg = document.getElementById("bg");
+      buckets.forEach(function (list, ci) {
+        var col = document.createElement("div");
+        col.className = "bg-col bg-col--" + names[ci];
+        // duplicate the list so the vertical loop is seamless (-50%)
+        list.concat(list).forEach(function (src) {
+          var img = new Image();
+          img.src = src;
+          img.alt = "";
+          img.loading = "lazy";
+          col.appendChild(img);
+        });
+        bg.appendChild(col);
+      });
+    })();
+  </script>
 </body>
 </html>
