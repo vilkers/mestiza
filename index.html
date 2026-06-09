@@ -135,6 +135,7 @@
       .status .dot { animation: none; }
     }
     @media (max-width: 640px) {
+      .bg-col:nth-child(2),
       .bg-col:nth-child(3) { display: none; }
     }
   </style>
@@ -169,7 +170,8 @@
       var colEls = [];
       var allImgs = [];
       var bg = document.getElementById('bg');
-      var offsets = [0, 13, 26];
+      var isMobile = window.innerWidth <= 640;
+      var offsets = isMobile ? [0] : [0, 13, 26];
 
       offsets.forEach(function (offset) {
         var list = paths.slice(offset).concat(paths.slice(0, offset));
@@ -244,7 +246,7 @@
 
           vel = 1 + (vel - 1) * Math.pow(0.94, dt / (1000 / 60));
 
-          for (var i = 0; i < 3; i++) {
+          for (var i = 0; i < colEls.length; i++) {
             px[i] += spd[i] * vel * dt;
             if (spd[i] < 0 && px[i] <= -halfH[i]) px[i] += halfH[i];
             if (spd[i] > 0 && px[i] >= 0)          px[i] -= halfH[i];
