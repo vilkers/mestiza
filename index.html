@@ -58,16 +58,16 @@
       border-radius: 2px;
     }
 
-    /* center scrim so the logo / email stay readable */
+    /* center scrim so the logo / email stay readable — soft even vignette */
     .scrim {
       position: fixed;
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      background: radial-gradient(ellipse 70% 60% at center,
-                  rgba(0,0,0,0.86) 0%,
-                  rgba(0,0,0,0.58) 45%,
-                  rgba(0,0,0,0.40) 100%);
+      background: radial-gradient(ellipse 95% 80% at center,
+                  rgba(0,0,0,0.62) 0%,
+                  rgba(0,0,0,0.46) 55%,
+                  rgba(0,0,0,0.34) 100%);
     }
 
     /* ===== centered content ===== */
@@ -87,7 +87,8 @@
     .logo {
       width: clamp(220px, 56vw, 360px);
       height: auto;
-      filter: brightness(0) invert(1);
+      /* off-white (#f4f1ea), sem brilho de branco puro */
+      filter: brightness(0) invert(0.95) sepia(0.08) saturate(0.6);
     }
     .status {
       font-size: 0.72rem;
@@ -189,13 +190,14 @@
       if (noMotion) return;
 
       // base speeds in % per frame @ 60 fps  (negative = drift up)
-      var BASE = [-50 / (95 * 60), 50 / (120 * 60), -50 / (105 * 60)];
+      var BASE = [-50 / (58 * 60), 50 / (72 * 60), -50 / (64 * 60)];
       var pos  = [0, -50, -18];  // staggered start positions
       var vel  = 1;              // speed multiplier (1 = normal, >1 = boosted)
+      var MAX  = 14;             // teto do boost
 
-      // mouse wheel boost
+      // mouse wheel boost — responde à intensidade da rolagem
       window.addEventListener('wheel', function (e) {
-        vel = Math.min(vel + Math.abs(e.deltaY) / 60 + 0.4, 7);
+        vel = Math.min(vel + Math.abs(e.deltaY) / 28 + 0.8, MAX);
       }, { passive: true });
 
       // touch boost (mobile)
@@ -206,12 +208,12 @@
       window.addEventListener('touchmove', function (e) {
         var dy = Math.abs(e.touches[0].clientY - lastTouchY);
         lastTouchY = e.touches[0].clientY;
-        vel = Math.min(vel + dy / 40 + 0.3, 7);
+        vel = Math.min(vel + dy / 22 + 0.6, MAX);
       }, { passive: true });
 
       function tick() {
-        // decay multiplier back to 1 each frame
-        vel = 1 + (vel - 1) * 0.95;
+        // momentum: desacelera suave de volta ao ritmo normal
+        vel = 1 + (vel - 1) * 0.94;
 
         for (var i = 0; i < 3; i++) {
           pos[i] += BASE[i] * vel;
