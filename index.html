@@ -212,11 +212,12 @@
         // Mede a metade exata de cada coluna em pixels
         var halfH = colEls.map(function (c) { return c.scrollHeight / 2; });
 
-        // Velocidades em px/frame @ 60fps (negativo = sobe)
+        // Velocidades em px/frame @ 60fps (negativo = sobe).
+        // Percorre halfH (um ciclo) em ~58/72/64 segundos.
         var spd = [
-          -(halfH[0] * 2) / (58 * 60),
-          (halfH[1] * 2) / (72 * 60),
-          -(halfH[2] * 2) / (64 * 60)
+          -halfH[0] / (58 * 60),
+          halfH[1] / (72 * 60),
+          -halfH[2] / (64 * 60)
         ];
 
         // Posições iniciais em px (staggered)
