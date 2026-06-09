@@ -212,22 +212,21 @@
         // Mede a metade exata de cada coluna em pixels
         var halfH = colEls.map(function (c) { return c.scrollHeight / 2; });
 
-        // Velocidades em px/frame @ 60fps (negativo = sobe).
-        // Percorre halfH (um ciclo) em ~58/72/64 segundos.
+        // Velocidades em px/ms — independente do refresh rate (60/120/144Hz).
+        // Ciclo completo (halfH px) em ~90/110/100 segundos.
         var spd = [
-          -halfH[0] / (58 * 60),
-          halfH[1] / (72 * 60),
-          -halfH[2] / (64 * 60)
+          -halfH[0] / (90 * 1000),
+           halfH[1] / (110 * 1000),
+          -halfH[2] / (100 * 1000)
         ];
 
-        // Posições iniciais em px (staggered)
-        var px = [0, -halfH[1], -Math.round(halfH[2] * 0.36)];
-
+        var px  = [0, -halfH[1], -Math.round(halfH[2] * 0.36)];
         var vel = 1;
-        var MAX = 14;
+        var MAX = 10;
+        var lastT = null;
 
         window.addEventListener('wheel', function (e) {
-          vel = Math.min(vel + Math.abs(e.deltaY) / 28 + 0.8, MAX);
+          vel = Math.min(vel + Math.abs(e.deltaY) / 60 + 0.6, MAX);
         }, { passive: true });
 
         var lastTouchY = 0;
@@ -235,14 +234,18 @@
         window.addEventListener('touchmove', function (e) {
           var dy = Math.abs(e.touches[0].clientY - lastTouchY);
           lastTouchY = e.touches[0].clientY;
-          vel = Math.min(vel + dy / 22 + 0.6, MAX);
+          vel = Math.min(vel + dy / 40 + 0.4, MAX);
         }, { passive: true });
 
-        function tick() {
-          vel = 1 + (vel - 1) * 0.94;
+        function tick(now) {
+          if (!lastT) lastT = now;
+          var dt = Math.min(now - lastT, 64); // cap em 64ms p/ evitar salto ao voltar de aba
+          lastT = now;
+
+          vel = 1 + (vel - 1) * Math.pow(0.94, dt / (1000 / 60));
+
           for (var i = 0; i < 3; i++) {
-            px[i] += spd[i] * vel;
-            // wrap sem pisca: usa halfH fixo medido depois do load
+            px[i] += spd[i] * vel * dt;
             if (spd[i] < 0 && px[i] <= -halfH[i]) px[i] += halfH[i];
             if (spd[i] > 0 && px[i] >= 0)          px[i] -= halfH[i];
             colEls[i].style.transform = 'translateY(' + px[i] + 'px)';
