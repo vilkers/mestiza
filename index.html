@@ -169,10 +169,11 @@
 
       var colEls = [];
       var bg = document.getElementById('bg');
-      var buckets = [[], [], []];
-      paths.forEach(function (p, i) { buckets[i % 3].push(p); });
-
-      buckets.forEach(function (list, ci) {
+      // Each column gets ALL 38 images, but starting at a different offset
+      // so they don't look synchronised. Loop is 38 images long → much less visible repeat.
+      var offsets = [0, 13, 26];
+      offsets.forEach(function (offset) {
+        var list = paths.slice(offset).concat(paths.slice(0, offset));
         var col = document.createElement('div');
         col.className = 'bg-col';
         list.concat(list).forEach(function (src) {  // duplicate for seamless -50% loop
