@@ -24,7 +24,7 @@
     body {
       background: var(--bg);
       color: var(--fg);
-      font-family: var(--mono);
+      font-family: var(--serif);
       -webkit-font-smoothing: antialiased;
       min-height: 100svh;
       display: flex;
@@ -91,9 +91,10 @@
       filter: brightness(0) invert(0.95) sepia(0.08) saturate(0.6);
     }
     .status {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.32em;
+      font-family: var(--serif);
+      font-size: clamp(0.62rem, 1.5vw, 0.82rem);
+      text-transform: lowercase;
+      letter-spacing: clamp(0.16em, 0.5vw, 0.42em);
       color: var(--dim);
       display: inline-flex;
       align-items: center;
@@ -106,8 +107,9 @@
     }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
     .mail {
-      font-size: clamp(0.95rem, 3.6vw, 1.15rem);
-      letter-spacing: 0.04em;
+      font-family: var(--serif);
+      font-size: clamp(0.82rem, 2.4vw, 1rem);
+      letter-spacing: clamp(0.12em, 0.4vw, 0.34em);
       color: var(--fg);
       border-bottom: 1px solid rgba(244,241,234,0.25);
       padding-bottom: 4px;
@@ -120,7 +122,6 @@
     .tagline {
       position: relative;
       z-index: 2;
-      font-family: var(--serif);
       font-weight: 400;
       text-transform: lowercase;
       text-align: center;
