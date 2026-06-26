@@ -6,14 +6,14 @@
   <title>Vire a chave · Grupo Boticário · tratamento · Mestiza</title>
   <meta name="description" content="Tratamento do filme conceito 'Vire a chave' para o Grupo Boticário. Direção e decupagem por Mestiza." />
   <meta name="robots" content="noindex" />
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="icon" type="image/png" href="/assets/favicon-moeda.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,400;0,500;0,600;1,400&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg:      #000000;
-      --bg-soft: #0a0a0a;
+      --bg:      #151515;
+      --bg-soft: #0f0f0f;
       --fg:      #f4f1ea;
       --dim:     #8a867d;
       --line:    rgba(244,241,234,0.12);
@@ -47,7 +47,7 @@
     /* ===== gate / senha ===== */
     .gate {
       position: fixed; inset: 0; z-index: 9999;
-      background: #000;
+      background: var(--bg);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       gap: clamp(22px, 4vh, 38px); padding: 24px; text-align: center;
     }
@@ -258,6 +258,10 @@
       padding: clamp(72px, 14vh, 150px) clamp(18px, 5vw, 80px) clamp(40px, 6vh, 64px);
       border-top: 1px solid var(--line); text-align: center;
     }
+    footer.end .coin-spin {
+      width: clamp(96px, 16vw, 150px); height: auto;
+      margin: 0 auto clamp(26px, 4vh, 42px);
+    }
     footer.end .logo {
       width: clamp(150px, 26vw, 230px); margin: 0 auto clamp(28px, 5vh, 48px);
       filter: brightness(0) invert(1) brightness(0.96) sepia(0.07);
@@ -348,8 +352,10 @@
     <p class="intro-text">A série transita por planos bem diferentes, do enquadramento fechado nas mãos ao plano aberto na rua, e cada imagem foi pensada para conversar com a seguinte, criando uma sequência que se lê como um único movimento. Teve sensibilidade de verdade na construção de cada contexto: o salão, a barbearia, a loja, a moto de entrega, todos carregam a textura de lugares brasileiros reais. Investimos em detalhes nos personagens, nos gestos, nos acessórios e no figurino, para que cada um tenha personalidade própria e a gente acredite na história. E mantivemos critério alto na constância dos personagens entre o gesto e a revelação, garantindo que é sempre a mesma pessoa virando a chave do próprio negócio.</p>
   </section>
 
+  <div class="rule"></div>
+
   <!-- ============ DECUPAGEM ============ -->
-  <section class="block wide" style="padding-bottom:0">
+  <section class="block wide" style="padding-bottom: clamp(40px, 6vh, 72px)">
     <span class="lead-num">03 · decupagem</span>
     <h2 class="title">Os dez frames.</h2>
     <p class="intro-text">Cada cena é um par: o <b class="accent">gesto</b> que abre o dia e a <b class="accent">revelação</b> do produto do grupo. Os stills abaixo são as poses-chave que serão animadas para o filme.</p>
@@ -501,6 +507,7 @@
 
   <!-- ============ FOOTER ============ -->
   <footer class="end">
+    <img class="coin-spin" src="assets/mestiza-coin-spin.gif" alt="Moeda Mestiza girando" loading="lazy" />
     <img class="logo" src="assets/logo-mestiza.png" alt="Mestiza" />
     <p class="tagline">haz lo que quieras hacer</p>
     <p class="contact"><a href="mailto:hablar@mestiza.work">hablar@mestiza.work</a></p>
