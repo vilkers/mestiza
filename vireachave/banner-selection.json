@@ -1,0 +1,271 @@
+{
+  "version": 1,
+  "selection": {
+    "version": 1,
+    "ready": true,
+    "clips": [
+      {
+        "source": "marinete",
+        "title": "Marinete",
+        "start": 0,
+        "end": 2.42,
+        "crop": {
+          "desktop": {
+            "x": 44,
+            "y": 29
+          },
+          "mobile": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        "id": "base-1"
+      },
+      {
+        "source": "hero",
+        "title": "virada de chave",
+        "start": 0,
+        "end": 1.17,
+        "crop": {
+          "desktop": {
+            "x": 50,
+            "y": 50
+          },
+          "mobile": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        "id": "6e8e082d-ca30-4a0e-8584-ad3ab4b50025"
+      },
+      {
+        "source": "yumi",
+        "title": "Anna Yumi",
+        "start": 4.17,
+        "end": 8.5,
+        "crop": {
+          "desktop": {
+            "x": 50,
+            "y": 34
+          },
+          "mobile": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        "id": "base-2"
+      },
+      {
+        "source": "wallace",
+        "title": "Wallace",
+        "start": 13.04,
+        "end": 14.67,
+        "crop": {
+          "desktop": {
+            "x": 50,
+            "y": 35
+          },
+          "mobile": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        "id": "base-3"
+      },
+      {
+        "source": "hero",
+        "title": "virada de chave",
+        "start": 11.92,
+        "end": 13.08,
+        "crop": {
+          "desktop": {
+            "x": 50,
+            "y": 50
+          },
+          "mobile": {
+            "x": 50,
+            "y": 50
+          }
+        },
+        "id": "93322770-dbd9-44bd-9183-be2f68cb8a1a"
+      }
+    ],
+    "editorDraft": {
+      "source": "hero",
+      "title": "virada de chave",
+      "start": 11.92,
+      "end": 13.08,
+      "crop": {
+        "desktop": {
+          "x": 50,
+          "y": 50
+        },
+        "mobile": {
+          "x": 50,
+          "y": 50
+        }
+      }
+    },
+    "savedAt": "2026-10-23T15:50:41Z"
+  },
+  "outputs": {
+    "desktop": {
+      "file": "banner-selecao-desktop.mp4",
+      "width": 1920,
+      "height": 1080,
+      "bytes": 12313699,
+      "duration": 10.75,
+      "timeline": [
+        {
+          "scene": "Marinete",
+          "source": "marinete",
+          "sourceStart": 0,
+          "sourceEnd": 2.42,
+          "timelineStart": 0,
+          "duration": 2.42,
+          "cropPixels": {
+            "width": 1080,
+            "height": 606,
+            "x": 0,
+            "y": 380
+          }
+        },
+        {
+          "scene": "virada de chave",
+          "source": "hero",
+          "sourceStart": 0,
+          "sourceEnd": 1.17,
+          "timelineStart": 2.42,
+          "duration": 1.17,
+          "cropPixels": {
+            "width": 1920,
+            "height": 1080,
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "scene": "Anna Yumi",
+          "source": "yumi",
+          "sourceStart": 4.17,
+          "sourceEnd": 8.5,
+          "timelineStart": 3.59,
+          "duration": 4.33,
+          "cropPixels": {
+            "width": 1080,
+            "height": 606,
+            "x": 0,
+            "y": 446
+          }
+        },
+        {
+          "scene": "Wallace",
+          "source": "wallace",
+          "sourceStart": 13.04,
+          "sourceEnd": 14.67,
+          "timelineStart": 7.92,
+          "duration": 1.63,
+          "cropPixels": {
+            "width": 1080,
+            "height": 606,
+            "x": 0,
+            "y": 458
+          }
+        },
+        {
+          "scene": "virada de chave",
+          "source": "hero",
+          "sourceStart": 11.92,
+          "sourceEnd": 13.08,
+          "timelineStart": 9.55,
+          "duration": 1.16,
+          "cropPixels": {
+            "width": 1920,
+            "height": 1080,
+            "x": 0,
+            "y": 0
+          }
+        }
+      ]
+    },
+    "mobile": {
+      "file": "banner-selecao-mobile.mp4",
+      "width": 1080,
+      "height": 1920,
+      "bytes": 12699591,
+      "duration": 10.75,
+      "timeline": [
+        {
+          "scene": "Marinete",
+          "source": "marinete",
+          "sourceStart": 0,
+          "sourceEnd": 2.42,
+          "timelineStart": 0,
+          "duration": 2.42,
+          "cropPixels": {
+            "width": 1080,
+            "height": 1920,
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "scene": "virada de chave",
+          "source": "hero",
+          "sourceStart": 0,
+          "sourceEnd": 1.17,
+          "timelineStart": 2.42,
+          "duration": 1.17,
+          "cropPixels": {
+            "width": 606,
+            "height": 1080,
+            "x": 656,
+            "y": 0
+          }
+        },
+        {
+          "scene": "Anna Yumi",
+          "source": "yumi",
+          "sourceStart": 4.17,
+          "sourceEnd": 8.5,
+          "timelineStart": 3.59,
+          "duration": 4.33,
+          "cropPixels": {
+            "width": 1080,
+            "height": 1920,
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "scene": "Wallace",
+          "source": "wallace",
+          "sourceStart": 13.04,
+          "sourceEnd": 14.67,
+          "timelineStart": 7.92,
+          "duration": 1.63,
+          "cropPixels": {
+            "width": 1080,
+            "height": 1920,
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "scene": "virada de chave",
+          "source": "hero",
+          "sourceStart": 11.92,
+          "sourceEnd": 13.08,
+          "timelineStart": 9.55,
+          "duration": 1.16,
+          "cropPixels": {
+            "width": 606,
+            "height": 1080,
+            "x": 656,
+            "y": 0
+          }
+        }
+      ]
+    }
+  }
+}

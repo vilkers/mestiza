@@ -15,7 +15,7 @@ Apresentação: https://docs.google.com/presentation/d/1FySRxsFyzlIV4Wh7vKXLHKLP
 
 ## Vídeos e hospedagem
 
-Os quatro filmes têm cópias H.264/AAC otimizadas, com fast start, controles nativos e carregamento somente sob demanda. A opção aprovada “02 · Pessoas”, uma montagem silenciosa de Marinete, Anna Yumi e Wallace, é usada na abertura; respeita redução de movimento e economia de dados. Não há dependência de URLs temporárias do Drive.
+Os quatro filmes têm cópias H.264/AAC otimizadas, com fast start, controles nativos e carregamento somente sob demanda. A abertura usa cinco recortes selecionados pelo cliente no seletor: Marinete (0–2,42 s), hero (0–1,17 s), Anna Yumi (4,17–8,50 s), Wallace (13,04–14,67 s) e caixa Eudora no hero (11,92–13,08 s). Há versões horizontal e vertical, renderizadas dos masters com os enquadramentos aprovados, selecionadas conforme a proporção da tela; respeita redução de movimento e economia de dados. Não há dependência de URLs temporárias do Drive.
 
 Vimeo é opcional, não um pré-requisito. Para uma futura migração, subir os quatro masters originais, permitir incorporação em `mestiza.work` (e `www.mestiza.work`, se usado), verificar o plano e fornecer os quatro códigos completos de incorporação, inclusive hashes de vídeos não listados. Substituir apenas os players dos filmes; o loop da abertura pode continuar local. Nunca usar a privacidade “Private” para um filme destinado ao público do case.
 
