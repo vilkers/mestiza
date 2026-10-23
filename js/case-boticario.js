@@ -3,6 +3,19 @@
   const loop = document.querySelector('.opening-motion');
   const toggle = document.querySelector('.motion-toggle');
   let userPaused = false;
+  if (loop.dataset.loopSrc.endsWith('/header-pessoas.mp4')) {
+    const framePeople = () => {
+      const time = loop.currentTime;
+      const focus = time < 2.12 ? 32
+        : time < 2.52 ? 32 + (time - 2.12) / .4 * 33
+        : time < 4 ? 65
+        : time < 4.4 ? 65 + (time - 4) / .4 * 27 : 92;
+      loop.style.objectPosition = `${focus}% center`;
+    };
+    framePeople();
+    loop.addEventListener('timeupdate', framePeople);
+    loop.addEventListener('seeked', framePeople);
+  }
   const stopLoop = () => { loop.pause(); loop.classList.remove('is-playing'); toggle.hidden = true; };
   const startLoop = async () => {
     if (reducedMotion.matches || navigator.connection?.saveData || userPaused) return;
