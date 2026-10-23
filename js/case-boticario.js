@@ -2,24 +2,27 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const loop = document.querySelector('.opening-motion');
   const toggle = document.querySelector('.motion-toggle');
+  const portraitScreen = window.matchMedia('(max-aspect-ratio: 1/1)');
   let userPaused = false;
-  if (loop.dataset.loopSrc.endsWith('/header-pessoas.mp4')) {
-    const framePeople = () => {
-      const time = loop.currentTime;
-      const focus = time < 2.12 ? 32
-        : time < 2.52 ? 32 + (time - 2.12) / .4 * 33
-        : time < 4 ? 65
-        : time < 4.4 ? 65 + (time - 4) / .4 * 27 : 92;
-      loop.style.objectPosition = `${focus}% center`;
-    };
-    framePeople();
-    loop.addEventListener('timeupdate', framePeople);
-    loop.addEventListener('seeked', framePeople);
-  }
+  let openingVisible = true;
+  let activeLoopSource = '';
+  const selectLoopSource = () => {
+    const source = portraitScreen.matches && loop.dataset.loopSrcMobile
+      ? loop.dataset.loopSrcMobile : loop.dataset.loopSrc;
+    if (source === activeLoopSource) return;
+    const resumeAt = loop.currentTime || 0;
+    activeLoopSource = source;
+    loop.addEventListener('loadedmetadata', () => {
+      if (activeLoopSource === source && Number.isFinite(loop.duration)) {
+        loop.currentTime = Math.min(resumeAt, Math.max(0, loop.duration - .05));
+      }
+    }, {once: true});
+    loop.src = source;
+  };
   const stopLoop = () => { loop.pause(); loop.classList.remove('is-playing'); toggle.hidden = true; };
   const startLoop = async () => {
-    if (reducedMotion.matches || navigator.connection?.saveData || userPaused) return;
-    if (!loop.src) loop.src = loop.dataset.loopSrc;
+    if (reducedMotion.matches || navigator.connection?.saveData || userPaused || !openingVisible || document.hidden) return;
+    selectLoopSource();
     try { await loop.play(); loop.classList.add('is-playing'); toggle.hidden = false; } catch { stopLoop(); }
   };
   toggle.addEventListener('click', () => {
@@ -29,9 +32,15 @@
     toggle.setAttribute('aria-label', userPaused ? 'Reproduzir vídeo de abertura' : 'Pausar vídeo de abertura');
   });
   reducedMotion.addEventListener('change', () => reducedMotion.matches ? stopLoop() : startLoop());
+  portraitScreen.addEventListener('change', () => {
+    if (!openingVisible) return;
+    if (loop.src) selectLoopSource();
+    if (!userPaused) startLoop();
+  });
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(entries => {
       for (const entry of entries) {
+        openingVisible = entry.isIntersecting;
         if (entry.isIntersecting) startLoop(); else loop.pause();
       }
     }, {threshold: .1}).observe(document.querySelector('.opening'));
