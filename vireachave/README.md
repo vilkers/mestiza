@@ -1,6 +1,6 @@
 # Grupo Boticário — Vire a chave
 
-Página estática em `/cases/boticario/`, integrada à estrutura do mestiza.work. A página inicial e os demais projetos permanecem intactos.
+Página estática em `/vireachave/`, integrada à estrutura do mestiza.work. A página inicial e os demais projetos permanecem intactos.
 
 ## Conteúdo
 
