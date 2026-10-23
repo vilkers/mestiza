@@ -15,7 +15,7 @@ Apresentação: https://docs.google.com/presentation/d/1FySRxsFyzlIV4Wh7vKXLHKLP
 
 ## Vídeos e hospedagem
 
-Os quatro filmes têm cópias H.264/AAC otimizadas, com fast start, controles nativos e carregamento somente sob demanda. Um trecho curto, silencioso e sem cartelas do hero é usado na abertura; respeita redução de movimento e economia de dados. Não há dependência de URLs temporárias do Drive.
+Os quatro filmes têm cópias H.264/AAC otimizadas, com fast start, controles nativos e carregamento somente sob demanda. A opção aprovada “02 · Pessoas”, uma montagem silenciosa de Marinete, Anna Yumi e Wallace, é usada na abertura; respeita redução de movimento e economia de dados. Não há dependência de URLs temporárias do Drive.
 
 Vimeo é opcional, não um pré-requisito. Para uma futura migração, subir os quatro masters originais, permitir incorporação em `mestiza.work` (e `www.mestiza.work`, se usado), verificar o plano e fornecer os quatro códigos completos de incorporação, inclusive hashes de vídeos não listados. Substituir apenas os players dos filmes; o loop da abertura pode continuar local. Nunca usar a privacidade “Private” para um filme destinado ao público do case.
 
