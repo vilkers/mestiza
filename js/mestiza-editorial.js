@@ -7,7 +7,7 @@
  document.querySelectorAll('.play-icon').forEach(el=>el.innerHTML=play);
  const scroll=document.querySelector('.scroll-link');if(scroll)scroll.innerHTML=icon('<path d="M12 3v18m-7-7 7 7 7-7"/>');
  const smile=icon('<circle cx="12" cy="12" r="9"/><path d="M8 14q4 5 8 0M8 9h.01M16 9h.01"/>');
- document.querySelectorAll('.people,.films,.product-details').forEach((section,i)=>{
+ document.querySelectorAll('.original-people,.films,.product-details').forEach((section,i)=>{
  const note=document.createElement('div');note.className='marginalia';note.innerHTML=`<span>${['Olhar de perto.','Gente que faz acontecer.','O detalhe também conta.'][i]}</span>${smile}<span>Mestiza<br>Direção / Craft / Imagem</span>`;section.after(note);
  });
  const visible=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');visible.unobserve(e.target)}}),{threshold:.08});
@@ -16,9 +16,6 @@
  reels.forEach(v=>{v.muted=true;v.defaultMuted=true;v.controls=false});
  const reelObserver=new IntersectionObserver(entries=>entries.forEach(e=>{const v=e.target;if(e.isIntersecting&&!document.hidden&&!reduce.matches){v.play().catch(()=>{})}else v.pause()}),{threshold:.15});reels.forEach(v=>reelObserver.observe(v));
  document.addEventListener('visibilitychange',()=>{if(document.hidden)reels.forEach(v=>v.pause());else reels.forEach(v=>{const r=v.getBoundingClientRect();if(r.bottom>0&&r.top<innerHeight&&!reduce.matches)v.play().catch(()=>{})})});
- const coin=document.querySelector('[data-scroll-coin]');let scheduled=false;
- function moveCoin(){scheduled=false;if(!coin||reduce.matches)return;const r=coin.parentElement.getBoundingClientRect(),p=(innerHeight-r.top)/(innerHeight+r.height);coin.style.transform=`rotate(${(p-.5)*100}deg) translateY(${(p-.5)*-90}px)`}
- addEventListener('scroll',()=>{if(!scheduled){scheduled=true;requestAnimationFrame(moveCoin)}},{passive:true});moveCoin();
  const modal=document.querySelector('.case-study');if(!modal)return;
  const stage=modal.querySelector('.study-stage'),bar=modal.querySelector('.study-progress i'),pause=modal.querySelector('[data-case-pause]');
  const kv='../assets/cases/boticario/kv/',vid='../assets/cases/boticario/video/';
