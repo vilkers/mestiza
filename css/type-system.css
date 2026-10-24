@@ -1,0 +1,10 @@
+/* Reference fonts: Signal-A public web specimen. Verify commercial font licenses before production release. */
+@font-face{font-family:'SA Editorial';src:local('PP Editorial New Thin'),url('https://cdn.prod.website-files.com/678617fee0f8375ca169e7ae/67865a1914387179695736ee_PPEditorialNew-Thin.woff2') format('woff2');font-weight:100 400;font-display:swap}
+@font-face{font-family:'SA Grotesk';src:local('Neue Haas Grotesk Display Pro'),url('https://cdn.prod.website-files.com/678617fee0f8375ca169e7ae/6946c8aa73b78faada54ae09_regular.woff2') format('woff2');font-weight:400 700;font-display:swap}
+@font-face{font-family:'SA Text';src:local('Neue Haas Grotesk Text Pro'),url('https://cdn.prod.website-files.com/678617fee0f8375ca169e7ae/67861e519defbf311ba039fa_font.woff2') format('woff2');font-weight:400;font-display:swap}
+@font-face{font-family:'SA Mono';src:local('GT America Mono Light'),url('https://cdn.prod.website-files.com/678617fee0f8375ca169e7ae/67861e262170bcb8bb054418_GT-America-Mono-Light.woff2') format('woff2');font-weight:300 500;font-display:swap}
+:root,:root[data-type-set="signal"]{--display:'SA Editorial',Georgia,serif;--body-font:'SA Text',Arial,sans-serif;--grotesk:'SA Grotesk',Arial,sans-serif;--ui:'SA Mono',monospace;--display-weight:100;--type-tracking:-.055em}
+:root[data-type-set="grotesk"]{--display:'SA Grotesk',Arial,sans-serif;--body-font:'SA Text',Arial,sans-serif;--grotesk:'SA Grotesk',Arial,sans-serif;--ui:'SA Mono',monospace;--display-weight:400;--type-tracking:-.065em}
+:root[data-type-set="plex"]{--display:'IBM Plex Sans',Arial,sans-serif;--body-font:'IBM Plex Sans',Arial,sans-serif;--grotesk:'IBM Plex Sans',Arial,sans-serif;--ui:'IBM Plex Mono',monospace;--display-weight:300;--type-tracking:-.06em}
+:root[data-type-set="instrument"]{--display:'Instrument Serif',Georgia,serif;--body-font:'Manrope',Arial,sans-serif;--grotesk:'Manrope',Arial,sans-serif;--ui:'IBM Plex Mono',monospace;--display-weight:400;--type-tracking:-.035em}
+:root{--serif:var(--display);--sans:var(--body-font);--gold:#f1f1ed;--accent:#f1f1ed;--bg:#000;--fg:#f3f3ef}
