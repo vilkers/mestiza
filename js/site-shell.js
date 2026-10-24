@@ -13,11 +13,11 @@
   const base=new URL(canvas.dataset.frameBase,location.href).href;
   let frames=caches.get(base);if(!frames){frames=Array.from({length:30},(_,i)=>{const image=new Image();image.decoding='async';image.dataset.src=base+String(i).padStart(2,'0')+'.webp';return image});caches.set(base,frames)}
   let active=0,pending=false,loaded=false;
-  function draw(){pending=false;const parent=canvas.closest('.coin-interlude,.about-coin')||canvas.parentElement;const r=parent.getBoundingClientRect();const progress=Math.max(0,Math.min(1,(innerHeight*.8-r.top)/(r.height+innerHeight*.6)));const frame=reduced.matches?0:Math.round(progress*29);active=frame;const image=frames[frame];if(image.complete&&image.naturalWidth){canvas.dataset.frame=String(frame);ctx.fillStyle='#000';ctx.fillRect(0,0,480,480);ctx.drawImage(image,0,0,480,480)}}
+  function draw(){pending=false;const parent=canvas.closest('[data-coin-scene],.coin-interlude,.about-coin')||canvas.parentElement;if(parent.hasAttribute('data-coin-scene')){const words=parent.querySelector('.footer-invite>span');if(words){const width=canvas.getBoundingClientRect().width;canvas.style.left=Math.max(0,Math.min(parent.clientWidth-width,words.getBoundingClientRect().width-width*.28))+'px'}}const r=parent.getBoundingClientRect();const progress=Math.max(0,Math.min(1,(innerHeight*.8-r.top)/(r.height+innerHeight*.6)));const frame=reduced.matches?0:(Math.round(progress*29)+(Number(canvas.dataset.frameOffset)||0))%30;active=frame;const image=frames[frame];if(image.complete&&image.naturalWidth){canvas.dataset.frame=String(frame);ctx.fillStyle='#000';ctx.fillRect(0,0,480,480);ctx.drawImage(image,0,0,480,480)}}
   function preload(){if(loaded)return;loaded=true;frames.forEach((image,i)=>{image.onload=()=>{if(i===active||i===0)draw()};image.src=image.dataset.src})}
   frames[0].onload=()=>{ctx.fillStyle='#000';ctx.fillRect(0,0,480,480);ctx.drawImage(frames[0],0,0,480,480)};frames[0].src=frames[0].dataset.src;
   new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting))preload()},{rootMargin:'600px'}).observe(canvas);
-  addEventListener('scroll',()=>{if(!pending){pending=true;requestAnimationFrame(draw)}},{passive:true});addEventListener('resize',draw);reduced.addEventListener('change',draw);
+  addEventListener('scroll',()=>{if(!pending){pending=true;requestAnimationFrame(draw)}},{passive:true});addEventListener('resize',draw);reduced.addEventListener('change',draw);if(document.fonts)document.fonts.ready.then(draw);draw();
  });
  document.querySelectorAll('[data-project-video]').forEach(video=>{
   const banner=video.closest('.project-banner'),toggle=banner.querySelector('[data-toggle-video]');let visible=true,paused=false;

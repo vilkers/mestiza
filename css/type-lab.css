@@ -5,3 +5,5 @@
 
 @media(max-width:950px){.selection-dock>p[role="status"]{display:block;position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}}
 @media(prefers-reduced-transparency:reduce){.glass-example,.selection-dock{background:#111;backdrop-filter:none;-webkit-backdrop-filter:none}}
+
+.signal-sample b{font-family:var(--body-font)}

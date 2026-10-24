@@ -1,5 +1,5 @@
 (()=>{
- const names={signal:'Signal A / misto',grotesk:'Signal A / grotesca',plex:'Plex / sistema',instrument:'Instrument / contraste'};
+ const names={signal:'Mestiza / três famílias',grotesk:'Signal A / grotesca',plex:'Plex / sistema',instrument:'Instrument / contraste'};
  const indices={signal:'01',grotesk:'02',plex:'03',instrument:'04'};
  const root=document.documentElement,radios=[...document.querySelectorAll('[name="type-set"]')];
  const status=document.querySelector('[data-save-status]'),size=document.querySelector('#type-size'),tracking=document.querySelector('#type-tracking');
