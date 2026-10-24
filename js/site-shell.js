@@ -1,4 +1,6 @@
-(()=>{
+(async()=>{
+ await window.MestizaReady;
+ const settings=window.MestizaSettings?.get()||{};
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  // Keep original logo silhouette. A translucent mask and light edge create relief without a flat fill.
  document.querySelectorAll('img[src*="logo-horizontal"],img[src*="logo-site-flat"]').forEach(img=>{const mark=document.createElement('span');mark.className='glass-wordmark';mark.setAttribute('role','img');mark.setAttribute('aria-label',img.alt||'Mestiza');if(!img.closest('.global-header,.brand,.header-logo,.study-top'))mark.classList.add('glass-wordmark--footer');img.replaceWith(mark)});
@@ -19,8 +21,9 @@
  });
  document.querySelectorAll('[data-project-video]').forEach(video=>{
   const banner=video.closest('.project-banner'),toggle=banner.querySelector('[data-toggle-video]');let visible=true,paused=false;
-  function source(){const mobile=matchMedia('(max-aspect-ratio:1/1)').matches;const src=mobile?video.dataset.mobile:video.dataset.desktop;if(!src)return;const url=new URL(src,location.href).href;if(video.src!==url)video.src=url}
+  function source(){const mobile=matchMedia('(max-aspect-ratio:1/1)').matches;const selected=mobile?settings.banner?.mobile:settings.banner?.desktop;const src=selected&&/^[a-z0-9-]+\.mp4$/.test(selected)?new URL('assets/cases/boticario/video/'+selected,window.MestizaSettings.base).href:(mobile?video.dataset.mobile:video.dataset.desktop);if(!src)return;const url=new URL(src,location.href).href;if(video.src!==url)video.src=url}
   function play(){if(paused||!visible||document.hidden||reduced.matches){video.pause();return}source();video.muted=true;video.play().catch(()=>{})}
+  video.style.objectPosition=`${Number(settings.banner?.x)||50}% ${Number(settings.banner?.y)||50}%`;video.addEventListener('loadedmetadata',()=>{const start=Math.max(0,Number(settings.banner?.start)||0);if(start<video.duration)video.currentTime=start});video.addEventListener('timeupdate',()=>{const start=Math.max(0,Number(settings.banner?.start)||0),end=Number(settings.banner?.end)||video.duration-.12;if(end>start&&video.currentTime>=end)video.currentTime=start});
   if(toggle)toggle.addEventListener('click',()=>{paused=!paused;toggle.textContent=paused?'Reproduzir vídeo':'Pausar vídeo';toggle.setAttribute('aria-pressed',String(paused));play()});
   new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;play()},{threshold:.05}).observe(banner);
   addEventListener('resize',play);document.addEventListener('visibilitychange',play);reduced.addEventListener('change',play);

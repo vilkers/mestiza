@@ -1,0 +1,20 @@
+{
+  "version":1,
+  "backgrounds":["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38"],
+  "closes":[
+    {"source":"03_marinete.webp","x":74,"y":57,"zoom":1.55,"caption":"Produtos na bancada do salão"},
+    {"source":"17_anna_yumi.webp","x":53,"y":75,"zoom":1.9,"caption":"Produto em cena · Anna Yumi"},
+    {"source":"10_raissa.webp","x":45,"y":75,"zoom":1.8,"caption":"Produtos sobre a mesa"}
+  ],
+  "banner":{"desktop":"banner-selecao-desktop.mp4","mobile":"banner-selecao-mobile.mp4","start":0,"end":0,"x":50,"y":50},
+  "texts":{
+    "studioLead":"Direção de arte, fotografia e produção de imagens.",
+    "studioBody":"A Mestiza desenvolve imagens e filmes combinando fotografia, inteligência artificial e pós-produção. O trabalho reúne concepção visual, direção e acabamento.",
+    "caseTitle":"Fotografia como base. Direção em cada imagem.",
+    "caseBody":"Para a campanha de revendedores do Grupo Boticário, a produção partiu de fotografias do elenco e referências de identidade. Essa base orientou a construção de cenários e composições, com revisão de luz, enquadramento e integração dos produtos. O projeto reúne 24 key visuals, um filme horizontal e três filmes verticais.",
+    "processBody":"Rostos, ângulos e expressões funcionam como referências ao longo da produção. Na composição final, pessoa, cenário e produto precisam compartilhar perspectiva, luz e escala."
+  },
+  "clients":[{"name":"Grupo Boticário","selected":true,"logo":""},{"name":"Banestes","selected":true,"logo":""},{"name":"Skol","selected":true,"logo":""}],
+  "socials":{"instagram":"","linkedin":"","vimeo":""},
+  "brief":{"studio":"","roles":"","process":"","challenge":"","technique":"","scope":"","credits":"","links":""}
+}
