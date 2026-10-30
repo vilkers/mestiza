@@ -80,33 +80,58 @@
   },
   "clients": [
     {
-      "name": "Grupo Boticário",
+      "name": "iFood",
       "selected": true,
       "logo": ""
     },
     {
       "name": "Decolar",
-      "selected": false,
+      "selected": true,
+      "logo": ""
+    },
+    {
+      "name": "Grupo Boticário",
+      "selected": true,
       "logo": ""
     },
     {
       "name": "Skol",
-      "selected": false,
-      "logo": ""
-    },
-    {
-      "name": "Banestes",
-      "selected": false,
-      "logo": ""
-    },
-    {
-      "name": "MedSênior",
-      "selected": false,
+      "selected": true,
       "logo": ""
     },
     {
       "name": "Mercado Livre",
-      "selected": false,
+      "selected": true,
+      "logo": ""
+    },
+    {
+      "name": "MedSênior",
+      "selected": true,
+      "logo": ""
+    },
+    {
+      "name": "Governo do ES",
+      "selected": true,
+      "logo": ""
+    },
+    {
+      "name": "John Deere",
+      "selected": true,
+      "logo": ""
+    },
+    {
+      "name": "MRV",
+      "selected": true,
+      "logo": ""
+    },
+    {
+      "name": "Rexona",
+      "selected": true,
+      "logo": ""
+    },
+    {
+      "name": "Kwai",
+      "selected": true,
       "logo": ""
     }
   ],
@@ -125,7 +150,7 @@
     "credits": "",
     "links": ""
   },
-  "revision": "20261029-boticario-only",
+  "revision": "20261030-portfolio-wip",
   "projects": [
     {
       "id": "decolar",
@@ -133,8 +158,17 @@
       "title": "Decolar",
       "description": "Um hotel vira cenário para música, futebol e encontros improváveis. Estudos de imagem e movimento: elenco, cenografia e câmera construídos dentro do mesmo universo visual.",
       "discipline": "Direção de arte / Imagem e movimento",
-      "cover": "6A0EhTqiJO",
+      "cover": "archive-02",
       "media": [
+        {
+          "id": "archive-02",
+          "src": "assets/work/02.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Decolar. músicos no hotel"
+        },
         {
           "id": "6A0EhTqiJO",
           "src": "assets/projects/decolar/6A0EhTqiJO.webp",
@@ -219,7 +253,8 @@
           "alt": "Decolar. estudo de filme no hotel"
         }
       ],
-      "selected": false
+      "selected": true,
+      "status": "wip"
     },
     {
       "id": "skol",
@@ -257,7 +292,8 @@
           "alt": "Skol. imagem 3"
         }
       ],
-      "selected": false
+      "selected": true,
+      "status": "wip"
     },
     {
       "id": "banestes",
@@ -322,7 +358,8 @@
           "alt": "Banestes. imagem 6"
         }
       ],
-      "selected": false
+      "selected": true,
+      "status": "wip"
     },
     {
       "id": "medsenior",
@@ -330,8 +367,17 @@
       "title": "MedSênior",
       "description": "A camisa como protagonista, da luz do estádio à sala de quem acompanha o jogo. Dois caminhos de imagem para o mesmo universo do futebol.",
       "discipline": "Direção de arte / Imagem",
-      "cover": "archive-13",
+      "cover": "archive-14",
       "media": [
+        {
+          "id": "archive-14",
+          "src": "assets/work/14.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "MedSênior"
+        },
         {
           "id": "archive-13",
           "src": "assets/work/13.jpg",
@@ -351,7 +397,8 @@
           "alt": "MedSênior. imagem 2"
         }
       ],
-      "selected": false
+      "selected": true,
+      "status": "wip"
     },
     {
       "id": "mercado-livre",
@@ -380,7 +427,18 @@
           "alt": "Mercado Livre. imagem 2"
         }
       ],
-      "selected": false
+      "selected": false,
+      "status": "hidden"
+    },
+    {
+      "id": "ifood",
+      "name": "iFood",
+      "title": "iFood",
+      "selected": true,
+      "status": "wip",
+      "discipline": "Case em desenvolvimento",
+      "cover": "",
+      "media": []
     }
   ]
 }

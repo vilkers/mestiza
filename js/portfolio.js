@@ -1,16 +1,16 @@
 (async()=>{
  await window.MestizaReady;
  const base=window.MestizaSettings.base,config=window.MestizaSettings.get();
- const projects=(config.projects||[]).filter(p=>p.selected && p.id==='boticario');
+ const projects=(config.projects||[]).filter(p=>p.selected);
  const src=path=>new URL(path,base).href;
  const create=(tag,cls,value)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(value)el.textContent=value;return el};
  function image(item){const img=new Image();img.src=src(item.src);img.alt=item.alt;img.loading='lazy';img.decoding='async';img.style.objectPosition=`${item.x??50}% ${item.y??50}%`;return img}
  document.querySelectorAll('[data-project-grid]').forEach(grid=>{
   grid.replaceChildren();projects.slice(0,Number(grid.dataset.limit)||projects.length).forEach((project,index)=>{
    const active=project.media.filter(m=>m.selected),cover=active.find(m=>m.id===project.cover)||active.find(m=>m.type==='image');if(!cover)return;
-   const card=create('a','portfolio-card');card.href=src(`projetos/${project.id}/`);
+   const card=create(project.status==='wip'?'article':'a','portfolio-card');if(project.status!=='wip')card.href=src(`projetos/${project.id}/`);
    const visual=create('div','portfolio-visual');visual.append(image(cover));
-   const meta=create('div','portfolio-meta');meta.append(create('h3','',project.name),create('span','','↗'));
+   const meta=create('div','portfolio-meta');meta.append(create('h3','',project.name),create('span','',project.status==='wip'?'WIP':'↗'));
    card.append(visual,meta,create('p','portfolio-discipline',project.discipline));grid.append(card);
   });
  });
@@ -18,18 +18,16 @@
  const banners=document.querySelector('[data-work-banners]');
  if(banners){
   for(const project of projects){
-   const media=project.media.filter(m=>m.selected),cover=media.find(m=>m.id===project.cover)||media.find(m=>m.type==='image');if(!cover)continue;
-   const section=create('section','project-banner');section.setAttribute('aria-label','Projeto '+project.name);
-   const still=image(cover);still.className='project-still';section.append(still);
-   const clip=media.find(m=>m.type==='video');
-   if(clip){still.src=src('assets/coin/scroll/08.webp');still.classList.add('is-coin-poster');const video=create('video','project-motion');video.src=src(clip.src);video.muted=true;video.autoplay=false;video.loop=true;video.playsInline=true;video.preload='none';video.setAttribute('aria-hidden','true');section.append(video);
-    new IntersectionObserver(entries=>{for(const e of entries){if(e.isIntersecting&&!matchMedia('(prefers-reduced-motion:reduce)').matches){video.muted=true;video.play().catch(()=>{})}else video.pause()}},{rootMargin:'100px'}).observe(section);
-   }
+   const media=project.media.filter(m=>m.selected),cover=media.find(m=>m.id===project.cover)||media.find(m=>m.type==='image');
+   const wip=project.status==='wip';
+   const section=create('article','project-banner'+(wip?' project-banner--wip':'')+' project-banner--'+project.id);section.setAttribute('aria-label','Projeto '+project.name+(wip?' — WIP':''));
+   if(cover){const still=image(cover);still.className='project-still';section.append(still)}
    section.append(create('div','project-shade'));
-   const link=create('a','project-banner-link');link.href=src(`projetos/${project.id}/`);
-   const meta=create('div','project-banner-meta');meta.append(create('span','',project.name),create('span','',project.discipline));
-   const title=create('h2','',project.name),cta=create('span','project-banner-cta','Explorar projeto ');
-   const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d','M5 19 19 5M5 5h14v14');svg.append(path);cta.append(svg);link.append(meta,title,cta);section.append(link);banners.append(section);
+   const content=create(wip?'div':'a','project-banner-link');if(!wip)content.href=src(`projetos/${project.id}/`);
+   const meta=create('div','project-banner-meta');meta.append(create('span','',project.name),create('span',wip?'wip-tag':'',wip?'WIP':project.discipline));
+   const title=create('h2','',project.name);content.append(meta,title);
+   if(!wip)content.append(create('span','project-banner-cta','Explorar projeto ↗'));
+   section.append(content);banners.append(section);
   }
  }
  // A video becomes visible only after playback has produced a frame.
