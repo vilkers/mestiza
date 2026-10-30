@@ -1,5 +1,5 @@
 (()=>{
- const key='mestiza.siteSettings.v1',base=new URL('../',document.currentScript.src).href;
+ const key='mestiza.siteSettings.20261029-boticario-only',base=new URL('../',document.currentScript.src).href;
  const merge=(a,b)=>{if(!b||typeof b!=='object'||Array.isArray(b))return a;const out={...a};for(const [k,v] of Object.entries(b)){if(['__proto__','constructor','prototype'].includes(k))continue;out[k]=v&&typeof v==='object'&&!Array.isArray(v)?merge(a?.[k]||{},v):v}return out};
  let current={version:1,backgrounds:[],closes:[],texts:{},clients:[],socials:{},banner:{},brief:{}};
  let pending=null;

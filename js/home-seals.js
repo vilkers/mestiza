@@ -1,0 +1,1 @@
+(()=>{const seals=document.querySelectorAll('.studio-seal');if(!seals.length)return;const observer=new IntersectionObserver(entries=>{for(const e of entries)e.target.classList.toggle('seal-active',e.isIntersecting)},{rootMargin:'50px'});seals.forEach(s=>observer.observe(s))})();

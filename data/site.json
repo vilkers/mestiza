@@ -1,20 +1,386 @@
 {
-  "version":1,
-  "backgrounds":["01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38"],
-  "closes":[
-    {"source":"03_marinete.webp","x":74,"y":57,"zoom":1.55,"caption":"Produtos na bancada do salão"},
-    {"source":"17_anna_yumi.webp","x":53,"y":75,"zoom":1.9,"caption":"Produto em cena · Anna Yumi"},
-    {"source":"10_raissa.webp","x":45,"y":75,"zoom":1.8,"caption":"Produtos sobre a mesa"}
+  "version": 1,
+  "backgrounds": [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38"
   ],
-  "banner":{"desktop":"banner-selecao-desktop.mp4","mobile":"banner-selecao-mobile.mp4","start":0,"end":0,"x":50,"y":50},
-  "texts":{
-    "studioLead":"Direção de arte, fotografia e produção de imagens.",
-    "studioBody":"A Mestiza desenvolve imagens e filmes combinando fotografia, inteligência artificial e pós-produção. O trabalho reúne concepção visual, direção e acabamento.",
-    "caseTitle":"Fotografia como base. Direção em cada imagem.",
-    "caseBody":"Para a campanha de revendedores do Grupo Boticário, a produção partiu de fotografias do elenco e referências de identidade. Essa base orientou a construção de cenários e composições, com revisão de luz, enquadramento e integração dos produtos. O projeto reúne 24 key visuals, um filme horizontal e três filmes verticais.",
-    "processBody":"Rostos, ângulos e expressões funcionam como referências ao longo da produção. Na composição final, pessoa, cenário e produto precisam compartilhar perspectiva, luz e escala."
+  "closes": [
+    {
+      "source": "03_marinete.webp",
+      "x": 74,
+      "y": 57,
+      "zoom": 1.55,
+      "caption": "Produtos na bancada do salão"
+    },
+    {
+      "source": "17_anna_yumi.webp",
+      "x": 53,
+      "y": 75,
+      "zoom": 1.9,
+      "caption": "Produto em cena · Anna Yumi"
+    },
+    {
+      "source": "10_raissa.webp",
+      "x": 45,
+      "y": 75,
+      "zoom": 1.8,
+      "caption": "Produtos sobre a mesa"
+    }
+  ],
+  "banner": {
+    "desktop": "banner-selecao-desktop.mp4",
+    "mobile": "banner-selecao-mobile.mp4",
+    "start": 0,
+    "end": 0,
+    "x": 50,
+    "y": 50
   },
-  "clients":[{"name":"Grupo Boticário","selected":true,"logo":""},{"name":"Banestes","selected":true,"logo":""},{"name":"Skol","selected":true,"logo":""}],
-  "socials":{"instagram":"","linkedin":"","vimeo":""},
-  "brief":{"studio":"","roles":"","process":"","challenge":"","technique":"","scope":"","credits":"","links":""}
+  "texts": {
+    "studioLead": "A Mestiza é um estúdio de IA com repertório de publicidade e direção de arte. A gente constrói imagens pensando no que elas precisam dizer. O gesto, a posição da câmera, a luz que deixa uma cena mais crível ou mais estranha. Cada escolha muda a leitura.",
+    "studioBody": "Explorar tecnologia é parte do processo criativo. Serve para testar uma cena por outro ângulo, descobrir um caminho que ainda não estava no briefing e levar o experimento até o acabamento. A gente gosta desse espaço entre saber fazer e descobrir como.",
+    "caseTitle": "Fotografia como base. Direção em cada imagem.",
+    "caseBody": "Para a campanha de revendedores do Grupo Boticário, a produção partiu de fotografias do elenco e referências de identidade. Essa base orientou a construção de cenários e composições, com revisão de luz, enquadramento e integração dos produtos. O projeto reúne 24 key visuals, um filme horizontal e três filmes verticais.",
+    "processBody": "Rostos, ângulos e expressões funcionam como referências ao longo da produção. Na composição final, pessoa, cenário e produto precisam compartilhar perspectiva, luz e escala."
+  },
+  "clients": [
+    {
+      "name": "Grupo Boticário",
+      "selected": true,
+      "logo": ""
+    },
+    {
+      "name": "Decolar",
+      "selected": false,
+      "logo": ""
+    },
+    {
+      "name": "Skol",
+      "selected": false,
+      "logo": ""
+    },
+    {
+      "name": "Banestes",
+      "selected": false,
+      "logo": ""
+    },
+    {
+      "name": "MedSênior",
+      "selected": false,
+      "logo": ""
+    },
+    {
+      "name": "Mercado Livre",
+      "selected": false,
+      "logo": ""
+    }
+  ],
+  "socials": {
+    "instagram": "",
+    "linkedin": "",
+    "vimeo": ""
+  },
+  "brief": {
+    "studio": "",
+    "roles": "",
+    "process": "",
+    "challenge": "",
+    "technique": "",
+    "scope": "",
+    "credits": "",
+    "links": ""
+  },
+  "revision": "20261029-boticario-only",
+  "projects": [
+    {
+      "id": "decolar",
+      "name": "Decolar",
+      "title": "Decolar",
+      "description": "Um hotel vira cenário para música, futebol e encontros improváveis. Estudos de imagem e movimento: elenco, cenografia e câmera construídos dentro do mesmo universo visual.",
+      "discipline": "Direção de arte / Imagem e movimento",
+      "cover": "6A0EhTqiJO",
+      "media": [
+        {
+          "id": "6A0EhTqiJO",
+          "src": "assets/projects/decolar/6A0EhTqiJO.webp",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Decolar. estudo de imagem 1"
+        },
+        {
+          "id": "jU4mRsJLD0",
+          "src": "assets/projects/decolar/jU4mRsJLD0.webp",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Decolar. estudo de imagem 2"
+        },
+        {
+          "id": "Sy3Xc48Ub8",
+          "src": "assets/projects/decolar/Sy3Xc48Ub8.webp",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Decolar. estudo de imagem 3"
+        },
+        {
+          "id": "Sy3XPAlUb8",
+          "src": "assets/projects/decolar/Sy3XPAlUb8.webp",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Decolar. estudo de imagem 4"
+        },
+        {
+          "id": "Lw9DJl9swO",
+          "src": "assets/projects/decolar/Lw9DJl9swO.webp",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Decolar. estudo de imagem 5"
+        },
+        {
+          "id": "jU4M7dmLD0",
+          "src": "assets/projects/decolar/jU4M7dmLD0.webp",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Decolar. estudo de imagem 6"
+        },
+        {
+          "id": "N2cfVqR6D9",
+          "src": "assets/projects/decolar/N2cfVqR6D9.webp",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Decolar. estudo de imagem 7"
+        },
+        {
+          "id": "gOiCz8OSXO",
+          "src": "assets/projects/decolar/gOiCz8OSXO.mp4",
+          "poster": "assets/projects/decolar/6A0EhTqiJO.webp",
+          "type": "video",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Decolar. elenco e instrumentos em cena"
+        },
+        {
+          "id": "Sy3CdAFUb8",
+          "src": "assets/projects/decolar/Sy3CdAFUb8.mp4",
+          "poster": "assets/projects/decolar/N2cfVqR6D9.webp",
+          "type": "video",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Decolar. estudo de filme no hotel"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "id": "skol",
+      "name": "Skol",
+      "title": "Skol",
+      "description": "Cor quente, câmera perto e perspectiva aberta. Uma série de imagens que explora o gesto de beber, a presença do produto e a luz sobre a pele.",
+      "discipline": "Direção de arte / Imagem",
+      "cover": "archive-08",
+      "media": [
+        {
+          "id": "archive-08",
+          "src": "assets/work/08.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 25,
+          "alt": "Skol. imagem 1"
+        },
+        {
+          "id": "archive-11",
+          "src": "assets/work/11.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 25,
+          "alt": "Skol. imagem 2"
+        },
+        {
+          "id": "archive-12",
+          "src": "assets/work/12.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 25,
+          "alt": "Skol. imagem 3"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "id": "banestes",
+      "name": "Banestes",
+      "title": "Banestes",
+      "description": "Retratos e produto em um cenário de pedra, água e luz azul. Construção de um universo visual em torno do cartão.",
+      "discipline": "Direção de arte / Imagem",
+      "cover": "archive-16",
+      "media": [
+        {
+          "id": "archive-16",
+          "src": "assets/work/16.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Banestes. imagem 1"
+        },
+        {
+          "id": "archive-15",
+          "src": "assets/work/15.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Banestes. imagem 2"
+        },
+        {
+          "id": "archive-17",
+          "src": "assets/work/17.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Banestes. imagem 3"
+        },
+        {
+          "id": "archive-06",
+          "src": "assets/work/06.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Banestes. imagem 4"
+        },
+        {
+          "id": "archive-09",
+          "src": "assets/work/09.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Banestes. imagem 5"
+        },
+        {
+          "id": "archive-18",
+          "src": "assets/work/18.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Banestes. imagem 6"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "id": "medsenior",
+      "name": "MedSênior",
+      "title": "MedSênior",
+      "description": "A camisa como protagonista, da luz do estádio à sala de quem acompanha o jogo. Dois caminhos de imagem para o mesmo universo do futebol.",
+      "discipline": "Direção de arte / Imagem",
+      "cover": "archive-13",
+      "media": [
+        {
+          "id": "archive-13",
+          "src": "assets/work/13.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "MedSênior. imagem 1"
+        },
+        {
+          "id": "archive-14",
+          "src": "assets/work/14.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "MedSênior. imagem 2"
+        }
+      ],
+      "selected": false
+    },
+    {
+      "id": "mercado-livre",
+      "name": "Mercado Livre",
+      "title": "Mercado Livre",
+      "description": "Produto, futebol e entretenimento. Estudos de imagem que levam o amarelo da marca para cenários, objetos e situações.",
+      "discipline": "Direção de arte / Imagem",
+      "cover": "archive-29",
+      "media": [
+        {
+          "id": "archive-29",
+          "src": "assets/work/29.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Mercado Livre. imagem 1"
+        },
+        {
+          "id": "archive-37",
+          "src": "assets/work/37.jpg",
+          "type": "image",
+          "selected": true,
+          "x": 50,
+          "y": 50,
+          "alt": "Mercado Livre. imagem 2"
+        }
+      ],
+      "selected": false
+    }
+  ]
 }
