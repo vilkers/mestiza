@@ -1,5 +1,13 @@
 # Mestiza Studio — Contexto do Projeto
 
+## Entrada temporária · novembro de 2026
+- `index.html` e `/em-construcao/` exibem a página pública com vídeo e contato.
+- A home completa foi preservada em `/inicio/`, com base de URLs na raiz.
+- `js/access-gate.js` controla a navegação da prévia via senha e sessão do navegador; é uma barreira visual, sem autenticação de servidor.
+- As páginas internas carregam o mesmo controle antes do conteúdo e usam `noindex`.
+- Estilos e interação da entrada: `css/construction.css` e `js/construction.js`.
+
+
 ## O que é isso
 Site + identidade digital do **Mestiza**, um studio criativo. Este repositório hospeda o site no GitHub Pages em **mestiza.work** (já no ar).
 
