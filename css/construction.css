@@ -8,3 +8,9 @@ main{flex:1;display:flex;flex-direction:column;padding-top:clamp(35px,7vh,76px)}
 @media(max-width:700px){.page{padding:10px 6vw 20px}.masthead{min-height:62px;padding:10px 15px;margin-inline:-3vw}.brand{width:105px}.status{font-size:7px;gap:6px}main{padding-top:32px}.overline{font-size:7px;gap:25px}.overline span:last-child{text-align:right;max-width:15ch}h1{font-size:20.5vw;line-height:1.02;letter-spacing:-.06em;margin:50px 0 42px}h1 span:nth-child(2){margin-left:8vw}.lower{align-items:flex-start;flex-direction:column;gap:25px;padding-bottom:27px}.intro p{font-size:14px}.intro p+p{font-size:12px}.access-button{min-height:48px;padding:13px 20px;font-size:9px;gap:28px}footer{gap:20px;padding-top:18px}footer .email{font-size:5.4vw;gap:9px}footer .email svg{width:15px;height:15px}footer>span{font-size:7px}.access-dialog{padding:36px 25px}.access-dialog h2{font-size:34px}}
 @media(max-height:750px) and (min-width:701px){main{padding-top:24px}h1{font-size:clamp(65px,13vh,112px);margin:20px 0}.lower{padding-bottom:20px}.intro p+p{margin-top:5px}}
 @media(prefers-reduced-motion:reduce){.backdrop video{transition:none}}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
