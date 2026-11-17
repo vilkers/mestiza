@@ -1,0 +1,167 @@
+/* Mestiza · camada de textura, estática VHS e tipografia em grão
+   Tokens próprios (--lj-*) apontam para a paleta terra e para a fonte de título.
+   Quando o patch Guaviari/terra estiver aplicado, basta apontar estes tokens para as
+   variáveis dele (ver bloco "ponte" no fim do arquivo). */
+
+@font-face {
+  font-family: 'Mestiza Title Fallback';
+  src: url('../assets/fonts/cabinet-700.woff2') format('woff2');
+  font-weight: 400 700; font-display: swap;
+}
+
+:root {
+  --lj-bg: #16100B;              /* fundo terra */
+  --lj-fg: #EFE5D6;              /* creme */
+  --lj-dim: #8C7B68;
+  --lj-accent: #C9A86A;
+  --lj-block: var(--lj-fg);
+  --lj-ink: var(--lj-bg);
+  --lj-title: 'Guaviari BT', 'Guaviari', 'Mestiza Title Fallback', sans-serif;
+  --lj-mono: 'SA Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --lj-grain-tint: #EFE5D6;
+  --lj-grain-opacity: .1;        /* ref: .1 */
+  --lj-radius: 12px;             /* ref: 12px */
+  --lj-gap: 12px;                /* ref: 12px */
+  --lj-pad: 12px;
+  --lj-ease: cubic-bezier(.215,.61,.355,1);
+  --lj-ease-leave: cubic-bezier(.645,.045,.355,1);
+  --lj-type-step: 60ms;          /* ref: 60ms por caractere */
+  --lj-caret-blink: 1.06s;       /* ref: 1.06s */
+  --lj-wipe: .24s;
+}
+
+/* ---------- grão de página ---------- */
+.lj-grain {
+  position: fixed; inset: 0; width: 100%; height: 100%;
+  z-index: 90; pointer-events: none; mix-blend-mode: screen;
+  opacity: 0; transition: opacity 1.2s var(--lj-ease);
+}
+.lj-grain.is-on { opacity: var(--lj-grain-opacity); }
+
+/* ---------- parede VHS ---------- */
+.lj-wall { position: relative; padding: 0 var(--lj-pad); }
+.lj-wall__grid {
+  display: grid; gap: var(--lj-gap);
+  grid-template-columns: repeat(var(--lj-cols, 7), minmax(0, 1fr));
+}
+.lj-cell {
+  position: relative; overflow: hidden; isolation: isolate;
+  /* proporção do bloco da ref (226/200), crescendo até preencher a altura da tela */
+  --lj-cellw: calc((100vw - 2 * var(--lj-pad) - (var(--lj-cols, 7) - 1) * var(--lj-gap)) / var(--lj-cols, 7));
+  height: clamp(calc(var(--lj-cellw) * 200 / 226),
+                calc((100svh - var(--lj-chrome, 150px) - (var(--lj-rows, 3) - 1) * var(--lj-gap)) / var(--lj-rows, 3)),
+                calc(var(--lj-cellw) * 1.1));
+  border-radius: var(--lj-radius);
+  background: #0b0806;
+  transform: translateZ(0);      /* Safari: recorte do border-radius com canvas */
+}
+.lj-cell__media, .lj-cell__noise { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: inherit; }
+.lj-cell__media { background-repeat: no-repeat; opacity: 0; transition: opacity .18s var(--lj-ease); }
+.lj-cell__noise { image-rendering: pixelated; opacity: 0; transition: opacity .18s var(--lj-ease); }
+.lj-cell[data-mode="tape"] .lj-cell__noise,
+.lj-cell[data-mode="zap"] .lj-cell__noise { opacity: 1; transition: none; }
+.lj-cell[data-mode="media"] .lj-cell__media { opacity: 1; }
+.lj-cell[data-mode="zap"] .lj-cell__noise { z-index: 3; }
+
+.lj-cell__letter {
+  position: absolute; inset: 0; z-index: 2;
+  display: grid; place-items: center;
+  font-family: var(--lj-title); font-weight: 400; line-height: 1;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--lj-fg) 72%, transparent);   /* ref: 72% */
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--lj-letter-fade, .52s) var(--lj-ease) var(--lj-letter-delay, 0s);
+}
+.lj-wall[data-letters="on"] .lj-cell__letter { opacity: 1; }
+.lj-cell[data-mode="media"] .lj-cell__letter,
+.lj-cell[data-mode="zap"] .lj-cell__letter { opacity: 0; transition: opacity .18s var(--lj-ease); }
+
+.lj-wall__osd {
+  position: absolute; inset: 0 var(--lj-pad); z-index: 4; pointer-events: none;
+  font-family: var(--lj-mono); text-transform: uppercase; letter-spacing: .02em;
+  color: color-mix(in srgb, var(--lj-fg) 82%, transparent);
+  font-size: clamp(14px, 2.2vw, 30px);
+  text-shadow: 1px 0 rgba(255, 90, 60, .35), -1px 0 rgba(80, 140, 255, .3);
+  mix-blend-mode: screen; opacity: 0; transition: opacity .3s;
+}
+.lj-wall[data-phase="tape"] .lj-wall__osd { opacity: 1; }
+.lj-osd__play { position: absolute; top: 3%; left: 1.6%; }
+.lj-osd__sp { position: absolute; bottom: 3%; left: 1.6%; }
+.lj-osd__sp b { font-weight: inherit; margin-left: .6em; }
+
+.lj-wall__meta {
+  display: flex; justify-content: space-between; gap: 24px;
+  padding: 10px var(--lj-pad) 0; font-family: var(--lj-mono); font-size: 12px;
+  text-transform: uppercase; line-height: 1.25; color: var(--lj-fg);
+}
+.lj-wall__meta span:last-child { text-align: right; max-width: 34ch; }
+
+/* ---------- nome no topo: troca por cortina (hover) ---------- */
+.lj-namemark { position: relative; display: inline-flex; color: var(--lj-fg); text-decoration: none;
+  font-family: var(--lj-mono); font-size: 12px; text-transform: uppercase; }
+.lj-namemark__ink, .lj-namemark__lit { display: inline-flex; gap: 6px; align-items: center; padding: 1px 3px; }
+.lj-namemark__ink { clip-path: inset(0); transition: clip-path 80ms var(--lj-ease-leave); }
+.lj-namemark__lit { position: absolute; inset: 0; background: var(--lj-fg); color: var(--lj-ink); font-weight: 700;
+  clip-path: inset(0 100% 0 0); transition: clip-path 80ms var(--lj-ease-leave); }
+.lj-namemark:hover .lj-namemark__ink, .lj-namemark:focus-visible .lj-namemark__ink { clip-path: inset(0 0 0 100%); transition: clip-path var(--lj-wipe) var(--lj-ease); }
+.lj-namemark:hover .lj-namemark__lit, .lj-namemark:focus-visible .lj-namemark__lit { clip-path: inset(0); transition: clip-path var(--lj-wipe) var(--lj-ease); }
+.lj-namemark:focus-visible { outline: none; }
+
+/* ---------- etiqueta de cursor ---------- */
+.lj-cursor {
+  position: fixed; top: 0; left: 0; z-index: 100; pointer-events: none; white-space: nowrap;
+  background: var(--lj-accent); color: var(--lj-ink);
+  font-family: var(--lj-mono); font-size: 12px; text-transform: uppercase; padding: 2px 5px;
+  visibility: hidden; will-change: transform;
+}
+.lj-cursor[data-on] { visibility: visible; }
+.lj-cursor span { opacity: 0; }
+.lj-cursor[data-on] span { animation: lj-type-in 1ms linear both; animation-delay: calc(var(--lj-type-step) * var(--i)); }
+
+/* ---------- texto datilografado ---------- */
+.lj-typed { font-family: var(--lj-title); text-transform: uppercase; color: var(--lj-fg); margin: 0; }
+.lj-typed__run span, .lj-typed__mark { opacity: 0; }
+.lj-typed__mark { background: var(--lj-fg); color: var(--lj-ink); padding: 0 .06em; }
+.lj-typed[data-typed="on"] .lj-typed__mark { opacity: 1; }
+.lj-typed[data-typed="on"] .lj-typed__run span { animation: lj-type-in 1ms linear both; animation-delay: calc(var(--lj-type-step) * var(--i)); }
+.lj-typed__caret { display: inline-block; width: .55em; height: .82em; margin-left: .08em; vertical-align: baseline; background: currentColor; }
+.lj-typed[data-typed="on"] .lj-typed__caret { animation: lj-type-in 1ms linear both, lj-caret var(--lj-caret-blink) steps(1) infinite; animation-delay: calc(var(--lj-type-step) * var(--i)); }
+@keyframes lj-type-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes lj-caret { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+/* ---------- pilha de blocos ---------- */
+.lj-stack { position: relative; overflow: clip; display: grid; justify-items: end; align-content: end; gap: var(--lj-gap); }
+.lj-stack__row { display: flex; gap: var(--lj-gap); justify-content: flex-end; }
+.lj-stack__block {
+  width: clamp(96px, 13vw, 190px); aspect-ratio: 226 / 200; border-radius: var(--lj-radius);
+  background: var(--lj-block) center / cover no-repeat; will-change: transform;
+}
+
+/* ---------- banner Sobre: card claro com letras em grão ---------- */
+.lj-banner { padding: clamp(24px, 6vw, 84px) var(--lj-pad); }
+.lj-banner__card {
+  --lj-card-bg: var(--lj-fg);
+  position: relative; overflow: hidden;
+  background: var(--lj-card-bg); color: var(--lj-ink);
+  border-radius: clamp(14px, 1.8vw, 28px);
+  aspect-ratio: 1600 / 622;      /* mesma proporção do card da ref */
+  transform: translateZ(0);
+}
+.lj-banner__card canvas {
+  display: block; width: 100%; height: 100%;
+  font-family: var(--lj-title); font-weight: 400; color: var(--lj-ink);
+  --lj-type-lh: .9; --lj-type-track: .02;
+}
+.lj-banner__caption { display: flex; justify-content: space-between; padding: 10px 2px 0;
+  font-family: var(--lj-mono); font-size: 12px; text-transform: uppercase; color: var(--lj-dim); }
+@media (max-width: 720px) {
+  .lj-banner__card { aspect-ratio: 4 / 5; }
+}
+
+.lj-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lj-cell__letter, .lj-cell__media, .lj-cell__noise, .lj-grain { transition: none; }
+  .lj-typed__run span, .lj-typed__mark, .lj-typed__caret { opacity: 1; animation: none !important; }
+  .lj-cursor span { opacity: 1; animation: none !important; }
+}

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<script src="/js/access-gate.js?v=20261103"></script>
+<noscript><meta http-equiv="refresh" content="0;url=/em-construcao/"><style>html{display:none}</style></noscript>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Textura e estática · Mestiza</title>
+<link rel="icon" href="../../assets/favicon-moeda.png">
+<link rel="stylesheet" href="../../css/type-system.css?v=20261028-r6">
+<link rel="stylesheet" href="../../css/lj-fx.css?v=1">
+<style>
+  html, body { margin: 0; background: var(--lj-bg); color: var(--lj-fg); }
+  body { font-family: var(--lj-mono); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; }
+  .lab-nav { display: flex; justify-content: space-between; align-items: center; padding: 12px var(--lj-pad); height: 16px; }
+  .lab-nav .dot { display: inline-flex; gap: 6px; align-items: center; font-size: 12px; text-transform: uppercase; text-decoration: none; }
+  .lab-nav .dot::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .lab-hero { min-height: calc(100svh - 40px); display: flex; flex-direction: column; }
+  .lab-hero .lj-wall { flex: 0 0 auto; }
+  .lab-scroll { margin-top: auto; text-align: center; font-size: 12px; text-transform: uppercase; padding: 24px 0 12px; }
+  .lab-today { overflow-x: clip; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 84px var(--lj-pad); min-height: 90svh; align-items: start; }
+  .lab-today small { display: block; font-size: 10px; text-transform: uppercase; margin-bottom: 8px; }
+  .lab-today .lj-typed { font-size: clamp(28px, 3.4vw, 52px); line-height: .98; max-width: 14ch; }
+  .lab-today .lj-stack { min-height: 70svh; }
+  .lab-work { padding: 48px var(--lj-pad) 24px; }
+  .lab-work h2 { font: 400 12px var(--lj-mono); text-transform: uppercase; margin: 0 0 12px; }
+  .lab-row { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 12px; padding: 14px 0; border-top: 1px solid color-mix(in srgb, var(--lj-fg) 18%, transparent); text-decoration: none; }
+  .lab-row strong { font: 400 clamp(32px, 6vw, 92px)/.9 var(--lj-title); text-transform: uppercase; transition: color .15s; }
+  .lab-row span { font-size: 12px; text-transform: uppercase; color: var(--lj-dim); }
+  .lab-row:hover strong { color: var(--lj-accent); }
+  .lab-foot { display: flex; justify-content: space-between; padding: 24px var(--lj-pad) 48px; font-size: 12px; text-transform: uppercase; color: var(--lj-dim); }
+  @media (max-width: 720px) {
+    .lab-today { grid-template-columns: 1fr; padding-top: 48px; }
+    .lab-today .lj-stack { min-height: 52svh; }
+    .lj-wall__meta { flex-direction: column; gap: 6px; }
+    .lj-wall__meta span:last-child { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<header class="lab-nav">
+  <a class="lj-namemark" href="/inicio/" aria-label="Mestiza · início">
+    <span class="lj-namemark__ink">Mestiza ▶</span>
+    <span class="lj-namemark__lit" aria-hidden="true">Mestiza ▶</span>
+  </a>
+  <a class="dot" href="mailto:hablar@mestiza.work">Contato</a>
+</header>
+
+<main>
+  <section class="lab-hero">
+    <div class="lj-wall" data-lj-wall
+         data-images="../../assets/work/13.jpg,../../assets/work/06.jpg,../../assets/work/20.jpg,../../assets/work/04.jpg">
+      <h1 class="lj-sr">Mestiza Studio</h1>
+      <div class="lj-wall__grid"></div>
+      <div class="lj-wall__osd" aria-hidden="true"></div>
+    </div>
+    <div class="lj-wall__meta">
+      <span>Haz lo que<br>quieras hacer</span>
+      <span>Estúdio de IA. Direção de arte, imagem e filme para marcas.</span>
+    </div>
+    <div class="lab-scroll" aria-hidden="true">▼ Rolar</div>
+  </section>
+
+  <section class="lab-today">
+    <div>
+      <small>Hoje.</small>
+      <p class="lj-typed" data-typed data-typed-mark="fácil">Fazer uma imagem nunca foi tão fácil...</p>
+    </div>
+    <div class="lj-stack" data-lj-stack aria-hidden="true">
+      <div class="lj-stack__row"><div class="lj-stack__block" style="background-image:url(../../assets/bg/06.jpg)"></div></div>
+      <div class="lj-stack__row"><div class="lj-stack__block" style="background-image:url(../../assets/bg/20.jpg)"></div><div class="lj-stack__block" style="background-image:url(../../assets/bg/13.jpg)"></div></div>
+      <div class="lj-stack__row"><div class="lj-stack__block" style="background-image:url(../../assets/bg/04.jpg)"></div><div class="lj-stack__block" style="background-image:url(../../assets/bg/21.jpg)"></div><div class="lj-stack__block" style="background-image:url(../../assets/bg/10.jpg)"></div></div>
+    </div>
+  </section>
+
+  <section class="lab-work" aria-labelledby="work-title">
+    <h2 id="work-title">Trabalhos</h2>
+    <a class="lab-row" href="/vireachave/" data-cursor-label="Ver case"><strong>Vire a chave</strong><span>Grupo Boticário</span></a>
+    <a class="lab-row" href="/projetos/medsenior/" data-cursor-label="Ver case"><strong>MedSênior</strong><span>Campanha</span></a>
+    <a class="lab-row" href="/projetos/mercado-livre/" data-cursor-label="Ver case"><strong>Mercado Livre</strong><span>Campanha</span></a>
+  </section>
+
+  <!-- Banner da página Sobre -->
+  <section class="lj-banner" aria-labelledby="sobre-conceito">
+    <div class="lj-banner__card">
+      <h2 id="sobre-conceito" class="lj-sr">Haz lo que quieras hacer</h2>
+      <canvas data-grain-type data-lines="HAZ LO QUE|QUIERAS|HACER" aria-hidden="true"></canvas>
+    </div>
+    <div class="lj-banner__caption"><span>01 / Sobre</span><span>Mestiza Studio</span></div>
+  </section>
+</main>
+
+<footer class="lab-foot"><span>Haz lo que quieras hacer.</span><span>Mestiza © 2026</span></footer>
+
+<script src="../../js/lj-grain.js?v=1" defer></script>
+<script src="../../js/lj-vhs-wall.js?v=1" defer></script>
+<script src="../../js/lj-ui.js?v=1" defer></script>
+<script src="../../js/grain-type.js?v=1" defer></script>
+</body>
+</html>
