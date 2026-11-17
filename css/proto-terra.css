@@ -1,0 +1,27 @@
+/* Protótipo: home da Mestiza na paleta terra com a parede VHS e o banner em grão.
+   Só vale para /prototipo/. Quando o patch Guaviari/terra entrar, estas regras saem. */
+body.home-view, .crafted-footer { background-color: var(--lj-bg); }
+.contact-coin { background-color: transparent; }
+
+.proto-wall { position: relative; padding-top: 96px; --lj-chrome: 250px; }
+.proto-wall .lj-wall__osd { top: 96px; }
+.proto-wall__link { position: absolute; inset: 96px var(--lj-pad) 0; z-index: 5; border-radius: var(--lj-radius); }
+.proto-wall__link:focus-visible { outline: 2px solid var(--lj-accent); outline-offset: 4px; }
+.proto-meta { padding-bottom: 24px; }
+
+.proto-banner { padding: 0 0 clamp(36px, 5vw, 72px); }
+
+.proto-today { overflow-x: clip; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;
+  padding: clamp(48px, 8vw, 120px) max(var(--lj-pad), 4vw); min-height: 80svh; }
+.proto-today small { display: block; font: 400 11px var(--lj-mono); text-transform: uppercase; color: var(--lj-fg); margin-bottom: 10px; }
+.proto-today .lj-typed { font-size: clamp(30px, 3.6vw, 56px); line-height: .98; max-width: 14ch; }
+.proto-today .lj-stack { min-height: 64svh; }
+@media (max-width: 720px) {
+  .proto-wall { padding-top: 84px; --lj-chrome: 230px; }
+  .proto-wall .lj-wall__osd { top: 84px; }
+  .proto-wall__link { top: 84px; }
+  .proto-today { grid-template-columns: 1fr; }
+  .proto-today .lj-stack { min-height: 50svh; }
+  .proto-meta { flex-direction: column; gap: 6px; }
+  .proto-meta span:last-child { text-align: left; }
+}
