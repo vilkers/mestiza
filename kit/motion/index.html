@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta name="robots" content="noindex,nofollow">
+  <script src="/js/access-gate.js?v=20261103"></script>
+  <noscript><meta http-equiv="refresh" content="0;url=/em-construcao/"><style>html{display:none}</style></noscript>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080808">
+  <title>Kit Motion · Mestiza</title>
+  <meta name="description" content="Boas práticas Mestiza para animar PSD e elementos de campanha com IA.">
+  <link rel="icon" href="/assets/favicon-moeda.png">
+  <style>
+    @font-face{font-family:'Mestiza Mono';src:url('/assets/fonts/mono.woff2') format('woff2');font-weight:300 500;font-display:swap}
+    :root{color-scheme:dark;--ink:#f1f1ed;--soft:#cecec6;--dim:#9a9a93;--line:#ffffff2a;--line-strong:#ffffff64;--bg:#080808;--mono:'Mestiza Mono',monospace;--sans:Helvetica,'Helvetica Neue',Arial,sans-serif;--gutter:5vw}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans)}
+    html{scroll-behavior:smooth;scroll-padding-top:110px}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;color:inherit;cursor:pointer}
+    a:focus-visible,button:focus-visible{outline:2px solid #fff;outline-offset:5px}
+    svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.1;stroke-linecap:round;stroke-linejoin:round;flex:none}
+    .mono{font:9px/1.7 var(--mono);letter-spacing:.025em;text-transform:uppercase}
+
+    /* Header: mesma pílula de vidro da entrada */
+    .masthead{position:fixed;z-index:20;top:16px;left:var(--gutter);right:var(--gutter);display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:68px;padding:12px 24px;border:1px solid #ffffff36;border-top-color:#ffffff70;border-radius:40px;background:linear-gradient(125deg,#ffffff18,#ffffff02 52%,#ffffff08),#0a0a0a70;backdrop-filter:blur(26px) saturate(115%);-webkit-backdrop-filter:blur(26px) saturate(115%)}
+    .brand{width:140px;display:flex;align-items:center;min-height:40px}
+    .glass-wordmark{display:block;width:100%;aspect-ratio:190/55;background:#ffffff45;backdrop-filter:blur(3px) brightness(1.5) saturate(115%);-webkit-backdrop-filter:blur(3px) brightness(1.5) saturate(115%);mask:url('/assets/logo/logo-horizontal.png') center/contain no-repeat;-webkit-mask:url('/assets/logo/logo-horizontal.png') center/contain no-repeat;filter:drop-shadow(0 -.65px .25px #ffffff8c) drop-shadow(0 1px .5px #000)}
+    .status{display:flex;align-items:center;gap:9px}
+    .status i{width:5px;height:5px;border:1px solid currentColor;border-radius:50%}
+
+    /* Hero */
+    .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;padding:16px var(--gutter) 23px;overflow:hidden}
+    .backdrop{position:absolute;inset:0}
+    .backdrop img,.backdrop video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}.backdrop video{opacity:0;transition:opacity .7s}.backdrop video.is-playing{opacity:.5}
+    .backdrop:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#0006 0%,#0003 32%,#0008 62%,var(--bg) 100%),linear-gradient(90deg,#0004,transparent 65%)}
+    .hero-inner{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;padding-top:clamp(120px,17vh,170px)}
+    .overline{display:flex;justify-content:space-between;gap:20px}
+    h1{font-size:clamp(68px,9.4vw,146px);line-height:.96;font-weight:400;letter-spacing:-.065em;margin:clamp(35px,5.5vh,65px) 0 clamp(30px,5vh,56px)}
+    h1 span{display:block}
+    h1 span:nth-child(2){margin-left:12vw}
+    h1 span:last-child{text-align:right}
+    .lower{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-top:auto;padding-bottom:28px;border-bottom:1px solid #ffffff36}
+    .lede{max-width:520px;margin:0;font-size:clamp(17px,1.35vw,21px);line-height:1.35;letter-spacing:-.02em;color:var(--soft)}
+    .actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end}
+    .pill{display:inline-flex;align-items:center;justify-content:center;gap:28px;min-height:52px;padding:15px 23px;border:1px solid var(--line-strong);border-radius:100px;background:#ffffff0c;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);font:10px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.025em;transition:background .2s}
+    .pill:hover{background:#ffffff20}
+    .pill svg{width:19px;height:19px}
+    .pill.solid{background:var(--ink);color:#080808;border-color:var(--ink)}
+    .pill.solid:hover{background:#fff}
+
+    /* Seções */
+    main{padding:0 var(--gutter)}
+    section{display:grid;grid-template-columns:minmax(150px,1fr) 3fr;gap:clamp(24px,4vw,64px);padding:clamp(64px,10vh,120px) 0;border-bottom:1px solid var(--line)}
+    .marginal{display:flex;flex-direction:column;gap:6px;color:var(--soft)}
+    .marginal span:first-child{color:var(--ink)}
+    h2{margin:0 0 clamp(28px,4vh,44px);font-size:clamp(42px,5.2vw,82px);line-height:.98;font-weight:400;letter-spacing:-.055em}
+    h2 em{font-style:normal;color:var(--dim)}
+    h3{margin:0 0 12px;font-size:21px;line-height:1.15;font-weight:400;letter-spacing:-.03em}
+    p,li{font-size:17px;line-height:1.45;letter-spacing:-.01em}
+    .body p{max-width:720px;color:var(--soft);margin:0 0 18px}
+    .body strong{color:var(--ink);font-weight:400}
+
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:8px}
+    .card{position:relative;padding:26px 24px 28px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(125deg,#ffffff0c,#ffffff02 52%,#ffffff05)}
+    .card .mono{display:block;color:var(--dim);margin-bottom:28px}
+    .card p{margin:0;color:var(--soft);font-size:15px}
+    .card.featured{border-color:#ffffff55;border-top-color:#ffffff80}
+    .tag{position:absolute;top:22px;right:20px;padding:4px 10px;border:1px solid var(--line-strong);border-radius:100px;color:var(--ink)}
+
+    .steps{list-style:none;margin:0;padding:0;counter-reset:s}
+    .steps li{counter-increment:s;display:grid;grid-template-columns:56px 1fr;gap:10px;padding:20px 0;border-top:1px solid var(--line);color:var(--soft)}
+    .steps li:last-child{border-bottom:1px solid var(--line)}
+    .steps li:before{content:counter(s,decimal-leading-zero);font:10px/2.2 var(--mono);color:var(--dim)}
+    .steps strong{display:block;color:var(--ink);font-weight:400;margin-bottom:4px}
+    code{font:13px var(--mono);background:#ffffff10;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--ink);word-break:break-word}
+
+    .checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 40px}
+    .checks div{padding:22px 0;border-top:1px solid var(--line)}
+    .checks ul{margin:0;padding:0;list-style:none}
+    .checks li{position:relative;padding-left:22px;margin:0 0 10px;color:var(--soft);font-size:15px}
+    .checks li:before{content:'';position:absolute;left:0;top:.5em;width:7px;height:7px;border:1px solid var(--soft);border-radius:50%}
+
+    .timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:6px 0 30px}
+    .timeline div{padding:16px 14px 18px;border:1px solid var(--line);border-radius:16px}
+    .timeline .mono{display:block;color:var(--dim);margin-bottom:22px}
+    .timeline b{font-weight:400;font-size:16px;letter-spacing:-.02em}
+    .timeline div:last-child{background:#ffffff10;border-color:#ffffff50}
+
+    .prompt{margin:0 0 12px;border:1px solid var(--line);border-radius:22px;overflow:hidden}
+    .prompt header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 12px 12px 22px;border-bottom:1px solid var(--line)}
+    .prompt header b{font-weight:400;font-size:17px;letter-spacing:-.02em}
+    .prompt pre{margin:0;padding:20px 22px 24px;font:12.5px/1.65 var(--mono);color:var(--soft);white-space:pre-wrap;word-break:break-word}
+    .copy{display:inline-flex;align-items:center;gap:12px;min-height:40px;padding:8px 16px;border:1px solid var(--line-strong);border-radius:100px;background:#ffffff0c;font:9px/1.5 var(--mono);text-transform:uppercase;letter-spacing:.025em}
+    .copy:hover{background:#ffffff20}
+    .copy svg{width:15px;height:15px}
+
+    .download{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;padding:28px;border:1px solid #ffffff55;border-top-color:#ffffff80;border-radius:28px;background:linear-gradient(125deg,#ffffff14,#ffffff02 52%,#ffffff08)}
+    .download h3{font-size:clamp(26px,2.6vw,38px);letter-spacing:-.045em;margin:10px 0 6px}
+    .download p{margin:0;color:var(--soft);font-size:15px}
+    .download .mono{color:var(--dim)}
+
+    footer{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px var(--gutter) 26px}
+    footer .email{display:flex;align-items:center;gap:18px;font-size:clamp(19px,2.2vw,32px);line-height:1.2;letter-spacing:-.04em}
+    footer .email svg{width:18px;height:18px}
+    footer>span{color:var(--soft);white-space:nowrap}
+
+    .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;padding:12px 20px;border:1px solid var(--line-strong);border-radius:100px;background:#101010ee;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:.25s;pointer-events:none;z-index:30}
+    .toast.show{opacity:1;transform:translate(-50%,0)}
+
+    @media(max-width:900px){section{grid-template-columns:1fr}.marginal{flex-direction:row;justify-content:space-between}.timeline{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}}
+    @media(max-width:700px){
+      :root{--gutter:6vw}
+      .masthead{top:10px;left:3vw;right:3vw;min-height:62px;padding:10px 15px}
+      .brand{width:105px}
+      .mono{font-size:8px}
+      .hero{padding-top:10px}
+      .hero-inner{padding-top:110px}
+      h1{font-size:19vw;line-height:1.02;letter-spacing:-.06em;margin:46px 0 40px}
+      h1 span:nth-child(2){margin-left:8vw}
+      .lower{flex-direction:column;align-items:flex-start}
+      .actions{justify-content:flex-start}
+      .pill{min-height:48px;padding:13px 20px;font-size:9px}
+      p,li{font-size:16px}
+      .download{padding:22px}
+      .prompt header{padding-left:18px}
+      .prompt pre{padding:16px 18px 20px;font-size:11.5px}
+      footer{flex-direction:column;align-items:flex-start}
+      footer .email{font-size:5.4vw;gap:9px}
+    }
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toast,.backdrop video{transition:none}}
+  </style>
+</head>
+<body>
+  <header class="masthead">
+    <a href="/inicio/" class="brand" aria-label="Mestiza · início"><span class="glass-wordmark" role="img" aria-label="Mestiza"></span></a>
+    <span class="status mono"><i aria-hidden="true"></i> Interno · Kit Motion</span>
+  </header>
+
+  <div class="hero">
+    <div class="backdrop" aria-hidden="true"><img src="/kit/motion/poster.jpg" alt="" fetchpriority="high"><video muted autoplay loop playsinline preload="metadata" data-desktop="/assets/cases/boticario/video/banner-selecao-desktop.mp4" data-mobile="/assets/cases/boticario/video/banner-selecao-mobile.mp4"></video></div>
+    <div class="hero-inner">
+      <div class="overline mono"><span>Mestiza / Kit interno</span><span>Para Bruno Franco · v1.0 · 18.11.2026</span></div>
+      <h1><span>Do PSD</span><span>à peça</span><span>animada.</span></h1>
+      <div class="lower">
+        <p class="lede">Um guia para animar KV e elementos de campanha com IA, com o padrão de craft das peças que a Mestiza fez para PicPay e iFood Benefícios. Baixe o arquivo, coloque no seu projeto de IA e peça a animação com os prompts abaixo.</p>
+        <div class="actions">
+          <button class="pill solid" type="button" data-download>Baixar .md <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v13M6 11l6 6 6-6M5 20h14"/></svg></button>
+          <a class="pill" href="#usar">Como usar <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <section id="arquivo">
+      <div class="marginal mono"><span>01 / Arquivo</span><span>mestiza-motion.md</span></div>
+      <div class="body">
+        <h2>Uma skill, <em>dois leitores.</em></h2>
+        <p>O arquivo serve a você e à IA. Para você, ele traz checklist de PSD, princípios de motion e checklist de entrega. Para a IA, ele define um fluxo de trabalho: <strong>entender a peça, decupar, escolher a rota e entregar um arquivo executável</strong>. Logo, texto, preço e produto ficam sempre com a arte oficial.</p>
+        <div class="download">
+          <div>
+            <span class="mono">Markdown · compatível com ChatGPT, Claude e Claude Code</span>
+            <h3>mestiza-motion.md</h3>
+            <p>7 seções: rotas, PSD, princípios, formatos, instruções para a IA, prompts e erros comuns.</p>
+          </div>
+          <div class="actions">
+            <button class="pill solid" type="button" data-download>Baixar arquivo <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v13M6 11l6 6 6-6M5 20h14"/></svg></button>
+            <button class="pill" type="button" data-copy-md>Copiar conteúdo <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="usar">
+      <div class="marginal mono"><span>02 / Como usar</span><span>5 minutos de setup</span></div>
+      <div class="body">
+        <h2>Suba uma vez. <em>Peça sempre.</em></h2>
+        <ol class="steps">
+          <li><div><strong>ChatGPT · Projeto</strong>Crie um Projeto (ex.: “Motion · nome da campanha”). Em <em>Arquivos do projeto</em>, adicione o <code>mestiza-motion.md</code>. Em <em>Instruções</em>, cole: <code>Siga o arquivo mestiza-motion.md em todo pedido de animação.</code></div></li>
+          <li><div><strong>Claude · Projeto</strong>Crie um Projeto e adicione o arquivo em <em>Conhecimento do projeto</em>, com a mesma instrução. No Claude Code, salve como <code>~/.claude/skills/mestiza-motion/SKILL.md</code> para virar uma skill.</div></li>
+          <li><div><strong>Prepare o PSD</strong>Siga o checklist da seção 04 desta página. Exporte as camadas em PNG no tamanho da prancheta e um frame final achatado.</div></li>
+          <li><div><strong>Comece pela decupagem</strong>Use o prompt 6.1. Aprove a decupagem antes de pedir código ou vídeo. Esse é o momento de direção de arte.</div></li>
+          <li><div><strong>Gere, revise e confira</strong>Rode a rota escolhida. Depois use o prompt de revisão 6.5 e o checklist de entrega antes de mandar para o cliente.</div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section id="rotas">
+      <div class="marginal mono"><span>03 / Dá para animar PSD?</span><span>Resposta curta: com rota</span></div>
+      <div class="body">
+        <h2>O ChatGPT não anima o PSD. <em>Ele dirige a animação.</em></h2>
+        <p>Subir um PSD e pedir um vídeo pronto não é confiável. Texto, objetos inteligentes, máscaras e efeitos se perdem. O caminho que funciona é a IA ler as camadas, propor a decupagem e entregar o arquivo que anima.</p>
+        <div class="cards">
+          <article class="card featured"><span class="mono">Rota A</span><span class="tag mono">Recomendada</span><h3>After Effects + script</h3><p>Importe o PSD no AE com camadas. A IA escreve um <code>.jsx</code> que encontra as camadas pelo nome e aplica keyframes, curvas e motion blur. Você só refina.</p></article>
+          <article class="card"><span class="mono">Rota B</span><h3>PNG + código</h3><p>Sem AE. A IA monta um HTML com GSAP ou um Lottie a partir das camadas exportadas e, quando o ambiente permite, renderiza MP4. Bom para banner e variações.</p></article>
+          <article class="card"><span class="mono">Rota C</span><h3>IA de vídeo na foto</h3><p>Kling, Veo, Runway ou Magnific dão vida à placa fotográfica: tecido, cabelo, luz, câmera. Gere a placa sem texto e sem logo e componha a tipografia depois.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="psd">
+      <div class="marginal mono"><span>04 / Preparar o PSD</span><span>Onde se ganha tempo</span></div>
+      <div class="body">
+        <h2>Camada bem nomeada <em>é metade da animação.</em></h2>
+        <div class="checks">
+          <div><h3>Estrutura</h3><ul><li>Um grupo por elemento que se move: <code>bg</code>, <code>hero</code>, <code>produto</code>, <code>headline</code>, <code>cta</code>, <code>logo</code>, <code>legal</code></li><li>Nomes sem acento e sem espaço</li><li>Cada linha de headline em uma camada própria</li><li>Texto vivo, logo como objeto inteligente</li></ul></div>
+          <div><h3>Recorte e sobra</h3><ul><li>Hero recortado, sem halo</li><li>Sombra de contato em camada separada</li><li>Fundo preenchido atrás do hero e estendido 10–15% além do quadro</li><li>Elementos que entram de fora inteiros</li></ul></div>
+          <div><h3>Formato e exportação</h3><ul><li>Trabalhe em 2x ou no tamanho nativo do DOOH</li><li>Um PSD por proporção: reenquadre, não escale</li><li>sRGB para tela</li><li>PNG com transparência no tamanho do canvas e um frame final achatado</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="principios">
+      <div class="marginal mono"><span>05 / Craft</span><span>Princípios de campanha</span></div>
+      <div class="body">
+        <h2>Hierarquia <em>é ordem de entrada.</em></h2>
+        <div class="timeline">
+          <div><span class="mono">01</span><b>Placa</b></div>
+          <div><span class="mono">02</span><b>Hero</b></div>
+          <div><span class="mono">03</span><b>Headline</b></div>
+          <div><span class="mono">04</span><b>Suporte</b></div>
+          <div><span class="mono">05 · fica</span><b>Marca + CTA</b></div>
+        </div>
+        <div class="checks">
+          <div><h3>Tempo</h3><ul><li>Social: 6, 10 ou 15s, com a ideia nos 2 primeiros segundos</li><li>DOOH: sem áudio, um gesto principal</li><li>Marca e CTA parados por 1,5–2s no fim</li><li>Leitura: ~3 palavras por segundo</li></ul></div>
+          <div><h3>Curvas</h3><ul><li>Entrada em ease-out forte (expo/quart)</li><li>Saída em ease-in, mais curta</li><li>Drift e parallax lineares ou senoidais</li><li>Bounce e elastic só se a marca pedir</li></ul></div>
+          <div><h3>Fidelidade</h3><ul><li>Cartão, logo e embalagem sempre da arte oficial</li><li>Na troca de um elemento em vídeo, preserve plano, luz e grão</li><li>Referência estética orienta luz e composição. Ela não substitui a arte oficial</li><li>Compare o último frame com o PSD aprovado</li></ul></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="prompts">
+      <div class="marginal mono"><span>06 / Prompts</span><span>Copie e troque os [colchetes]</span></div>
+      <div class="body">
+        <h2>Comece pela decupagem. <em>Código depois.</em></h2>
+        <div data-prompts></div>
+      </div>
+    </section>
+
+    <section id="entrega">
+      <div class="marginal mono"><span>07 / Entrega</span><span>Antes de mandar</span></div>
+      <div class="body">
+        <h2>Veja no celular. <em>Três vezes.</em></h2>
+        <div class="checks">
+          <div><h3>Arquivo</h3><ul><li>MP4 H.264, 30fps, sRGB</li><li>Master em ProRes ou sequência PNG</li><li>Nome: <code>campanha_peca_1080x1920_10s_v01.mp4</code></li><li>Peso e duração dentro da especificação do veículo</li></ul></div>
+          <div><h3>Leitura</h3><ul><li>Nada na zona de interface do Stories (topo e base)</li><li>Texto legal parado e legível</li><li>Preço nunca vem de IA de vídeo</li></ul></div>
+          <div><h3>Acabamento</h3><ul><li>Sem buraco no parallax</li><li>Sem halo nos recortes</li><li>Cor da marca conferida com o PSD</li><li>Loop encaixando, se for loop</li></ul></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="email" href="mailto:hablar@mestiza.work">hablar@mestiza.work <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg></a>
+    <span class="mono">Haz lo que quieras hacer · Mestiza © 2026</span>
+  </footer>
+
+  <div class="toast mono" role="status" aria-live="polite"></div>
+
+<script type="text/plain" id="mestiza-motion-md">
+---
+name: mestiza-motion
+description: Boas práticas Mestiza para transformar PSD e elementos de campanha em peças animadas (social, DOOH, mídia digital). Use quando o pedido envolver animar um KV, um PSD, camadas exportadas, After Effects, HTML/Lottie ou vídeo gerado por IA a partir de uma arte de campanha.
+---
+
+# Mestiza Motion · do PSD à peça animada
+
+Versão 1.0 · 18/11/2026 · Mestiza (mestiza.work)
+
+Este arquivo é a inteligência de motion da Mestiza para peças de campanha. Ele serve a dois leitores ao mesmo tempo:
+
+- **Você (designer / diretor de arte):** checklist de preparação, princípios de craft e prompts prontos.
+- **A IA (ChatGPT, Claude ou outra):** instruções de como agir quando você pedir uma animação.
+
+Coloque este arquivo como conhecimento de um Projeto no ChatGPT ou no Claude e peça normalmente. A IA deve seguir as regras da seção "Instruções para a IA".
+
+---
+
+## 1. A verdade sobre "animar um PSD no ChatGPT"
+
+O ChatGPT **não abre o PSD e devolve um vídeo de campanha pronto** de forma confiável. Ele pode ler um PSD no ambiente Python em alguns casos, mas camadas de texto, objetos inteligentes, efeitos e máscaras se perdem ou chegam rasterizados. Não conte com isso para uma peça de cliente.
+
+O que funciona bem, em ordem de recomendação:
+
+| Rota | Quando usar | O que a IA faz | O que você faz |
+| --- | --- | --- | --- |
+| **A · After Effects + script** (recomendada) | Peça de campanha, cliente exigente, várias versões de formato | Escreve o roteiro de motion e um script `.jsx` que anima as camadas pelo nome | Importa o PSD no AE como composição, roda o script, ajusta curvas e exporta |
+| **B · Camadas PNG + código** | Sem AE, peça simples, banner HTML5, muitas variações | Monta a animação em HTML/CSS/GSAP ou Lottie e, quando der, renderiza MP4/GIF | Exporta as camadas em PNG, sobe tudo, revisa e grava/renderiza |
+| **C · IA de vídeo (image-to-video)** | Dar vida à **foto** (pele, tecido, fumaça, câmera lenta, luz) | Escreve o prompt de movimento para Kling, Veo, Runway, Magnific etc. | Gera **só a placa fotográfica, sem texto e sem logo**, e compõe a tipografia depois (rota A ou B) |
+
+Regra de ouro: **IA de vídeo nunca mexe em logo, texto, preço, cartão, embalagem ou produto com arte oficial.** Ela distorce. Esses elementos entram por cima, a partir do arquivo original.
+
+---
+
+## 2. Preparar o PSD (o que mais economiza tempo)
+
+O trabalho de motion começa no PSD. Um arquivo bem montado faz a IA acertar de primeira.
+
+**Estrutura**
+- Um grupo por elemento que se move: `bg`, `hero`, `produto`, `headline`, `sub`, `cta`, `logo`, `legal`.
+- Nomes curtos, sem acento, sem espaço, em minúsculas: `headline_l1`, `headline_l2`, `produto_sombra`. A IA e os scripts encontram as camadas pelo nome.
+- Cada linha de headline numa camada própria se ela vai entrar separada.
+- Texto vivo (camada de texto), não rasterizado, se a rota for After Effects.
+- Logo e selos como objeto inteligente vetorial. Nunca recrie o logo.
+
+**Recortes e sobra de imagem**
+- Produto e pessoa recortados em camada própria, com borda limpa (sem halo claro em fundo escuro).
+- Sombra de contato em camada separada, abaixo do recorte. Ela precisa acompanhar o objeto.
+- **Fundo com sobra:** se o hero vai se mover (parallax, push-in), o fundo precisa existir atrás dele. Preencha a área escondida (Preenchimento Generativo / Content-Aware) e estenda as bordas uns 10–15% além do quadro. Sem isso, o movimento revela buracos.
+- Elementos que entram de fora do quadro precisam estar inteiros, não cortados pela borda da prancheta.
+
+**Resolução e formatos**
+- Trabalhe no maior formato e com folga: 2x para social, ou o tamanho nativo do DOOH se for maior.
+- Um PSD por proporção (9:16, 4:5, 1:1, 16:9). Reenquadrar é decisão de direção de arte, não de escala.
+- Perfil de cor sRGB para tudo que vai para tela.
+
+**Exportar camadas (rota B e C)**
+- Photoshop: *Arquivo → Exportar → Camadas em arquivos* (PNG-24 com transparência) ou *Exportar como* por grupo.
+- Mantenha o tamanho do canvas em todas as camadas exportadas (mesma prancheta). Assim a posição vem junto e a IA não precisa adivinhar coordenadas.
+- Exporte também um `frame-final.png` achatado: é a referência do último quadro.
+
+---
+
+## 3. Princípios de motion para campanha
+
+**Hierarquia é ordem de entrada.** O olho segue o que se move primeiro. Ordem padrão:
+1. Placa / fundo (já está lá, ou um respiro de câmera)
+2. Hero (pessoa, produto, objeto)
+3. Headline
+4. Suporte (sub, preço, benefício)
+5. Marca + CTA, que **ficam parados no final**
+
+**Tempo**
+- Social: 6s, 10s ou 15s. Os 2 primeiros segundos precisam funcionar sozinhos (scroll).
+- DOOH: siga o spot do veículo (geralmente 10s ou 15s). Sem áudio. A mensagem precisa ser lida de longe e de passagem.
+- Marca e CTA visíveis e parados por **no mínimo 1,5–2s** no fim.
+- Texto: tempo de leitura de ~3 palavras por segundo, depois que a entrada termina.
+
+**Curvas (easing)**
+- Entradas: *ease-out* forte (expo/quart out). Rápido no começo, assentando devagar. É o que dá cara de peça cara.
+- Saídas: *ease-in*, mais curtas que as entradas.
+- Movimentos contínuos (drift, parallax, loop): linear ou senoidal bem suave.
+- Evite *bounce*, *elastic* e *overshoot* exagerado, a menos que a marca seja lúdica.
+- Durações de referência: entrada de texto 400–700ms; hero 800–1200ms; deslocamentos de câmera 3–6s.
+
+**Craft**
+- Mova pouco. Distâncias de 20–60px (em 1080) para texto. Escala de 100→103% num push-in já dá vida.
+- Escalone (stagger) linhas e palavras em 60–120ms. Nada entra tudo junto.
+- Use *motion blur* nas entradas rápidas (AE: ligar por camada + na composição).
+- Parallax em 2–3 planos no máximo: fundo mais lento, hero médio, primeiro plano mais rápido.
+- Preserve a luz e o grão da foto. Se um elemento novo entra, ele precisa ter a mesma luz, grão e nitidez.
+- Loop: se a peça roda em loop, o último quadro tem que encaixar no primeiro. Planeje desde o começo.
+- Menos é mais em DOOH: um gesto principal, não cinco.
+
+**Fidelidade de marca (aprendizado das peças PicPay e iFood Benefícios)**
+- Cartão, logo, embalagem e produto vêm sempre da arte oficial. Se um render de IA divergiu, troque pelo original no acabamento.
+- Numa troca de elemento dentro de um vídeo (ex.: trocar um cartão na mão), **preserve o plano**: mesmo enquadramento, mesma luz, mesmo grão. Use a arte oficial como referência de fidelidade e o look do plano como referência de composição.
+- Separe referências por função: arte oficial = fidelidade; referência estética = luz, composição, textura. Uma não substitui a outra.
+- Compare o render final quadro a quadro com o PSD aprovado: cor da marca, kerning da headline, posição do logo, texto legal.
+
+**Texto legal e preço**
+- Texto legal entra e fica parado, legível, pelo tempo exigido. Nada de animar letra a letra.
+- Preço e condições nunca saem de IA de vídeo. Sempre camada de texto ou PNG do PSD.
+
+---
+
+## 4. Formatos e entrega
+
+| Uso | Tamanho | Observações |
+| --- | --- | --- |
+| Stories / Reels / TikTok | 1080×1920 | Zona segura: evite ~250px no topo e ~350px na base (interface do app) |
+| Feed | 1080×1350 (4:5) ou 1080×1080 | 4:5 ocupa mais tela no feed |
+| Horizontal / YouTube | 1920×1080 | |
+| DOOH | Conforme o veículo | Confirme tamanho, duração, fps, peso máximo e se aceita vídeo ou só imagem |
+| Banner HTML5 | Conforme o veículo | Peso máximo é crítico; prefira CSS/GSAP leve a vídeo |
+
+**Exportação padrão**
+- MP4 H.264, 30fps (ou 25fps se o veículo pedir), sRGB / Rec.709, sem áudio quando for DOOH.
+- Master em ProRes 422 (ou PNG sequence) para guardar; MP4 para entregar.
+- GIF só quando for exigido; limite cores e duração.
+- Nome do arquivo: `campanha_peca_formato_duracao_v01.mp4` (ex.: `verao_kv-produto_1080x1920_10s_v03.mp4`).
+
+**Checklist antes de entregar**
+- [ ] Assistiu no celular, no tamanho real, pelo menos 3 vezes.
+- [ ] Os 2 primeiros segundos contam a ideia.
+- [ ] Logo e CTA parados ≥1,5s no fim.
+- [ ] Nenhum texto em zona de interface.
+- [ ] Cores da marca conferidas com o PSD aprovado.
+- [ ] Texto legal legível pelo tempo necessário.
+- [ ] Sem buracos de fundo no parallax, sem halos nos recortes.
+- [ ] Peso e duração dentro da especificação do veículo.
+- [ ] Master guardado e versão nomeada.
+
+---
+
+## 5. Instruções para a IA
+
+Quando o usuário pedir para animar uma peça, siga este fluxo:
+
+1. **Entenda a peça antes de animar.** Pergunte só o que faltar (no máximo 3 perguntas): formato(s) e duração, onde vai rodar (social, DOOH, banner), ferramenta disponível (After Effects? só navegador?) e se há loop. Se o usuário já trouxe isso, não pergunte.
+2. **Leia o material.** Liste as camadas/arquivos recebidos e o papel de cada um: fundo, hero, texto, marca, legal. Diga claramente o que é **arte oficial (fidelidade)** e o que é **referência (estética)**.
+3. **Proponha uma decupagem antes do código.** Uma tabela de tempo: `tempo | camada | ação | easing`. Diga a ideia do movimento em uma frase. Ofereça no máximo 2 alternativas quando houver escolha real de direção.
+4. **Escolha a rota** (A: After Effects + `.jsx`, B: HTML/GSAP/Lottie, C: prompt de image-to-video) de acordo com a ferramenta e a peça, e diga por quê.
+5. **Entregue o artefato executável completo**, não um esboço:
+   - Rota A: script ExtendScript `.jsx` que encontra as camadas **pelo nome**, cria keyframes com easing (influência 70–85% na entrada), liga motion blur, define duração e fps da comp. Avise se algum nome não existir em vez de falhar em silêncio.
+   - Rota B: um único `index.html` autocontido que carrega os PNGs pelo nome, anima com CSS ou GSAP e tem duração fixa. Se o ambiente permitir, renderize quadros e um MP4; se não, explique como gravar/renderizar.
+   - Rota C: prompt de movimento para a **placa sem texto**, com câmera, ação, ritmo e o que **não** pode mudar. Lembre que logo, texto e produto entram depois.
+6. **Nunca** redesenhe, gere ou "melhore" logo, texto, preço, cartão, embalagem ou produto. Use os arquivos originais.
+7. **Feche com o checklist** da seção 4 aplicado à peça e diga o que precisa ser conferido manualmente.
+
+Tom: direto, prático, de direção de arte publicitária. Nada de teoria longa. Se o pedido estiver fraco (movimento demais, hierarquia confusa, texto pequeno para DOOH), aponte e proponha melhor.
+
+---
+
+## 6. Prompts prontos
+
+Troque o que está entre `[colchetes]`.
+
+### 6.1 Decupagem (comece sempre por aqui)
+
+```
+Estou animando uma peça de campanha. Use o arquivo mestiza-motion.md como regra.
+Peça: [ex.: KV de lançamento do produto X]
+Formato(s): [1080x1920 10s] e [1920x1080 10s]
+Onde roda: [Reels e DOOH em painel de metrô]
+Ferramenta: [After Effects 2024 / só navegador]
+Loop: [sim/não]
+Anexei o frame final e as camadas exportadas.
+Primeiro me devolva: o papel de cada camada, a ideia do movimento em uma frase
+e uma decupagem tempo | camada | ação | easing. Não escreva código ainda.
+```
+
+### 6.2 After Effects a partir do PSD (rota A)
+
+```
+Aprovado. Agora escreva um script ExtendScript (.jsx) para After Effects que:
+- trabalha na composição ativa (o PSD importado como "Composição - Camadas mantidas")
+- encontra as camadas pelo nome exato: [bg, hero, produto, produto_sombra, headline_l1, headline_l2, cta, logo, legal]
+- aplica a decupagem aprovada com keyframes de posição/escala/opacidade
+- usa ease-out forte nas entradas (influência ~80%) e liga motion blur
+- define duração [10s] e [30fps]
+- avisa num alert quais camadas não foram encontradas
+Entregue o arquivo completo e me diga como rodar (Arquivo > Scripts > Executar arquivo de script).
+```
+
+### 6.3 Animação em código a partir de PNGs (rota B)
+
+```
+Sem After Effects. Anexei as camadas em PNG, todas no tamanho da prancheta [1080x1920].
+Monte um index.html autocontido que:
+- empilha as camadas na ordem [bg, hero, headline_l1, headline_l2, cta, logo]
+- anima seguindo a decupagem aprovada, com GSAP (ou CSS se for mais leve)
+- tem duração fixa de [10s], [com/sem] loop
+- mantém logo e CTA parados nos últimos 2s
+Se o seu ambiente conseguir, renderize os quadros e me devolva um MP4 H.264 30fps.
+Se não conseguir, me dê o HTML e os passos para gravar/renderizar.
+```
+
+### 6.4 Dar vida à foto com IA de vídeo (rota C)
+
+```
+Vou gerar um vídeo image-to-video a partir da placa fotográfica (sem texto e sem logo).
+Ferramenta: [Kling / Veo / Runway / Magnific]. Duração: [5s].
+Escreva um prompt curto em inglês com:
+- câmera (ex.: slow push-in, locked-off, subtle handheld)
+- ação principal sutil (ex.: tecido se move com vento leve, cabelo, fumaça, reflexo)
+- ritmo (lento, contínuo, sem cortes)
+- o que NÃO pode mudar: rosto, produto, cores, enquadramento, luz
+E um negative prompt contra deformação, texto, logo e morphing.
+```
+
+### 6.5 Revisão crítica
+
+```
+Aqui está o render [anexo]. Revise como diretor de arte de campanha:
+hierarquia, tempo de leitura, curvas, fidelidade de marca (comparando com o frame final do PSD),
+zona segura e texto legal. Liste só o que mudar, em ordem de impacto.
+```
+
+---
+
+## 7. Erros comuns
+
+- Animar tudo ao mesmo tempo → ninguém lê nada.
+- Logo entrando com efeito e saindo antes de ser lido.
+- Usar IA de vídeo na peça inteira com texto → letras derretem, logo deforma.
+- Parallax com fundo sem sobra → buraco aparece atrás do hero.
+- Curva linear em entrada → movimento barato, de template.
+- Exportar 4:5 e "reaproveitar" em 9:16 sem reenquadrar.
+- Entregar sem ver no celular.
+
+---
+
+Mestiza · haz lo que quieras hacer · hablar@mestiza.work
+</script>
+<script>
+(()=>{
+  const video=document.querySelector('.backdrop video'),q=matchMedia('(max-aspect-ratio:1/1)');
+  const source=()=>{const url=new URL(q.matches?video.dataset.mobile:video.dataset.desktop,location.href).href;if(video.src!==url){video.classList.remove('is-playing');video.src=url}video.muted=true;video.play().catch(()=>{})};
+  video.addEventListener('playing',()=>video.classList.add('is-playing'));q.addEventListener('change',source);document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else video.play().catch(()=>{})});source();
+  const md=document.getElementById('mestiza-motion-md').textContent.replace(/^\n/,'');
+  const toast=document.querySelector('.toast');let t;
+  const say=msg=>{toast.textContent=msg;toast.classList.add('show');clearTimeout(t);t=setTimeout(()=>toast.classList.remove('show'),2200)};
+  const copy=async text=>{try{await navigator.clipboard.writeText(text);say('Copiado')}catch{const a=document.createElement('textarea');a.value=text;document.body.append(a);a.select();try{document.execCommand('copy');say('Copiado')}catch{say('Não foi possível copiar')}a.remove()}};
+  document.querySelectorAll('[data-download]').forEach(b=>b.addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([md],{type:'text/markdown;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='mestiza-motion.md';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);say('Download iniciado')}));
+  document.querySelector('[data-copy-md]').addEventListener('click',()=>copy(md));
+  // Prompts vêm da seção 6 do próprio .md, para página e arquivo nunca divergirem.
+  const box=document.querySelector('[data-prompts]'),re=/^### (.+)\n+```\n([\s\S]*?)```/gm;let m;
+  const icon='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>';
+  while((m=re.exec(md))){const art=document.createElement('article');art.className='prompt';art.innerHTML='<header><b></b><button class="copy" type="button">Copiar '+icon+'</button></header><pre></pre>';art.querySelector('b').textContent=m[1];art.querySelector('pre').textContent=m[2].trim();const text=m[2].trim();art.querySelector('button').addEventListener('click',()=>copy(text));box.append(art)}
+})();
+</script>
+</body>
+</html>

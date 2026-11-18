@@ -3,3 +3,4 @@ Disallow: /admin/
 Disallow: /editores/
 Disallow: /tipografia/
 Disallow: /icones/
+Disallow: /kit/
