@@ -32,8 +32,13 @@
     /* Hero */
     .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;padding:16px var(--gutter) 23px;overflow:hidden}
     .backdrop{position:absolute;inset:0}
-    .backdrop img,.backdrop video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}.backdrop video{opacity:0;transition:opacity .7s}.backdrop video.is-playing{opacity:.5}
-    .backdrop:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#0006 0%,#0003 32%,#0008 62%,var(--bg) 100%),linear-gradient(90deg,#0004,transparent 65%)}
+    /* Tela fora de sintonia: chiado escuro + scanlines + faixa de rolagem lenta */
+    .backdrop{z-index:0;background:#050505}
+    .static{position:absolute;inset:0;width:100%;height:100%;opacity:.13;filter:contrast(1.25)}
+    .backdrop:before{content:'';position:absolute;inset:0;z-index:1;background:repeating-linear-gradient(180deg,#0000 0 2px,#0000008c 2px 3px);pointer-events:none}
+    .roll{position:absolute;left:0;right:0;top:-30%;height:22%;z-index:1;background:linear-gradient(180deg,#0000,#ffffff09 45%,#ffffff12 50%,#ffffff09 55%,#0000);animation:roll 9s linear infinite}
+    @keyframes roll{to{transform:translateY(600%)}}
+    .backdrop:after{content:'';position:absolute;inset:0;z-index:2;background:radial-gradient(ellipse 85% 75% at 50% 45%,#0000 40%,#000a 100%),linear-gradient(180deg,#0000 70%,var(--bg) 100%)}
     .hero-inner{position:relative;z-index:1;flex:1;display:flex;flex-direction:column;padding-top:clamp(120px,17vh,170px)}
     .overline{display:flex;justify-content:space-between;gap:20px}
     h1{font-size:clamp(68px,9.4vw,146px);line-height:.96;font-weight:400;letter-spacing:-.065em;margin:clamp(35px,5.5vh,65px) 0 clamp(30px,5vh,56px)}
@@ -128,7 +133,7 @@
       footer{flex-direction:column;align-items:flex-start}
       footer .email{font-size:5.4vw;gap:9px}
     }
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toast,.backdrop video{transition:none}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toast{transition:none}.roll{animation:none;display:none}}
   </style>
 </head>
 <body>
@@ -138,7 +143,7 @@
   </header>
 
   <div class="hero">
-    <div class="backdrop" aria-hidden="true"><img src="/kit/motion/poster.jpg" alt="" fetchpriority="high"><video muted autoplay loop playsinline preload="metadata" data-desktop="/assets/cases/boticario/video/banner-selecao-desktop.mp4" data-mobile="/assets/cases/boticario/video/banner-selecao-mobile.mp4"></video></div>
+    <div class="backdrop" aria-hidden="true"><canvas class="static"></canvas><i class="roll"></i></div>
     <div class="hero-inner">
       <div class="overline mono"><span>Mestiza / Kit interno</span><span>Para Bruno Franco · v1.0 · 18.11.2026</span></div>
       <h1><span>Do PSD</span><span>à peça</span><span>animada.</span></h1>
@@ -496,9 +501,12 @@ Mestiza · haz lo que quieras hacer · hablar@mestiza.work
 </script>
 <script>
 (()=>{
-  const video=document.querySelector('.backdrop video'),q=matchMedia('(max-aspect-ratio:1/1)');
-  const source=()=>{const url=new URL(q.matches?video.dataset.mobile:video.dataset.desktop,location.href).href;if(video.src!==url){video.classList.remove('is-playing');video.src=url}video.muted=true;video.play().catch(()=>{})};
-  video.addEventListener('playing',()=>video.classList.add('is-playing'));q.addEventListener('change',source);document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else video.play().catch(()=>{})});source();
+  // Chiado: ruído em baixa resolução, ~20fps, pausa fora da tela ou em reduced-motion.
+  const cv=document.querySelector('.static'),cx=cv.getContext('2d'),still=matchMedia('(prefers-reduced-motion:reduce)');let img,last=0,on=true;
+  const size=()=>{cv.width=Math.ceil(innerWidth/3);cv.height=Math.ceil(innerHeight/3);img=cx.createImageData(cv.width,cv.height);draw()};
+  const draw=()=>{const d=img.data;for(let i=0;i<d.length;i+=4){const v=Math.random()*255|0;d[i]=d[i+1]=d[i+2]=v;d[i+3]=255}cx.putImageData(img,0,0)};
+  const loop=t=>{if(on&&!still.matches&&t-last>50){draw();last=t}requestAnimationFrame(loop)};
+  new IntersectionObserver(([e])=>on=e.isIntersecting).observe(cv);addEventListener('resize',size);size();requestAnimationFrame(loop);
   const md=document.getElementById('mestiza-motion-md').textContent.replace(/^\n/,'');
   const toast=document.querySelector('.toast');let t;
   const say=msg=>{toast.textContent=msg;toast.classList.add('show');clearTimeout(t);t=setTimeout(()=>toast.classList.remove('show'),2200)};
