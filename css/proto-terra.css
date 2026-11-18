@@ -1,7 +1,8 @@
 /* Protótipo: home da Mestiza na paleta terra com a parede VHS e o banner em grão.
    Só vale para /prototipo/. Quando o patch Guaviari/terra entrar, estas regras saem. */
-body.home-view, .crafted-footer { background-color: var(--lj-bg); }
-.contact-coin { background-color: transparent; }
+body.home-view { background-color: var(--lj-bg); }
+body.home-view .crafted-footer { background: var(--lj-bg) !important; }   /* home-seals.css usa #000 !important */
+.contact-coin { background-color: transparent; mix-blend-mode: lighten; }   /* quadros da moeda têm fundo preto */
 
 .proto-wall { position: relative; padding-top: 96px; --lj-chrome: 250px; }
 .proto-wall .lj-wall__osd { top: 96px; }
