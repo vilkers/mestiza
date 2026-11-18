@@ -1,0 +1,54 @@
+/* Mestiza · tema terra + Guaviari BT (protótipo)
+   Fonte principal: Guaviari BT em caixa alta nos títulos, menu e chamadas.
+   O texto corrido continua na sans do site (a caixa baixa da Guaviari é decorativa demais para leitura).
+   O arquivo da fonte não está no repositório: aguarda confirmação da licença de webfont. */
+@font-face {
+  font-family: 'Guaviari BT';
+  src: url('../assets/fonts/guaviari-bt.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+:root { --lj-title: 'Guaviari BT', 'Mestiza Title Fallback', sans-serif; }
+/* o site define títulos com !important (minimal-system.css); :not(#_) dá peso de ID para estas regras vencerem */
+html:root { --display: var(--lj-title); }
+
+/* paleta terra no lugar do preto */
+html, body { background: var(--lj-bg) !important; color: var(--lj-fg); }
+body .crafted-footer { background: var(--lj-bg) !important; border-top-color: color-mix(in srgb, var(--lj-fg) 14%, transparent) !important; }
+.opening { background-color: var(--lj-bg) !important; }
+.film-frame, .opening video, .selected-product-crop { background-color: #1d150f !important; }
+dialog.lightbox { background: color-mix(in srgb, var(--lj-bg) 97%, transparent) !important; }
+::selection { background: var(--lj-accent); color: var(--lj-ink); }
+
+/* Guaviari: títulos, menu, chamadas */
+:is(h1, h2, h3):not(#_), :is(h1, h2, h3):not(#_) :is(span, em), .footer-invite span, .global-menu a, .client-track span, .client-track a, .hero-project-cta, .eyebrow + h2,
+.manifesto-poster h1, .manifesto-poster h1 *, .opening h1, .opening h1 * {
+  font-family: var(--lj-title) !important; font-weight: 400 !important; text-transform: uppercase;
+  letter-spacing: .005em; font-style: normal;
+}
+:is(h1, h2):not(#_) { line-height: .9 !important; letter-spacing: .005em !important; text-wrap: balance; }
+:is(h1, h2, h3):not(#_) em { font-style: normal !important; color: color-mix(in srgb, var(--lj-fg) 62%, transparent); }
+.manifesto-poster h1:not(#_) em { color: inherit; font-size: 1em !important; }
+.global-menu a { letter-spacing: .04em; }
+.manifesto-poster h1, .manifesto-poster h1 *, .opening h1, .opening h1 * { text-transform: uppercase !important; letter-spacing: 0 !important; }
+.manifesto-poster h1 span:first-child { font-size: 1em !important; }
+
+/* moeda sem fundo (quadros com transparência em assets/coin/scroll-alpha/) */
+.contact-coin, .coin-scroll { background: transparent !important; }
+
+/* parede VHS como abertura da home e do case */
+.manifesto-poster, .opening { position: relative; }
+.lj-wall--overlay { --lj-top: 96px; }
+.lj-wall--overlay .lj-cell__letter { color: color-mix(in srgb, var(--lj-fg) 80%, transparent); }
+@media (max-width: 720px) { .lj-wall--overlay { --lj-top: 84px; } }
+
+/* home: banner do Sobre e bloco "Hoje" */
+.proto-banner { padding: 0 0 clamp(36px, 5vw, 72px); }
+.proto-today { overflow-x: clip; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;
+  padding: clamp(48px, 8vw, 120px) max(var(--lj-pad), 4vw); min-height: 80svh; }
+.proto-today small { display: block; font: 400 11px var(--lj-mono); text-transform: uppercase; color: var(--lj-fg); margin-bottom: 10px; }
+.proto-today .lj-typed { font-size: clamp(30px, 3.6vw, 56px); line-height: .98; max-width: 14ch; }
+.proto-today .lj-stack { min-height: 64svh; }
+@media (max-width: 720px) {
+  .proto-today { grid-template-columns: 1fr; }
+  .proto-today .lj-stack { min-height: 50svh; }
+}

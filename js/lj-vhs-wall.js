@@ -111,9 +111,20 @@
     }
   };
 
+  function layoutFrom(attr, base) {
+    if (!attr) return base;
+    var rows = attr.split('|');
+    var cols = rows.reduce(function (m, r) { return Math.max(m, r.length); }, 0) || base.cols;
+    return { cols: cols, rows: rows.length, letters: rows, key: attr };
+  }
+
   Wall.prototype.layout = function () {
     var narrow = window.matchMedia('(max-width: 720px)').matches;
-    var L = narrow ? LAYOUTS.narrow : LAYOUTS.wide;
+    if (!this.layouts) this.layouts = {
+      wide: layoutFrom(this.root.dataset.letters, LAYOUTS.wide),
+      narrow: layoutFrom(this.root.dataset.lettersNarrow, LAYOUTS.narrow)
+    };
+    var L = narrow ? this.layouts.narrow : this.layouts.wide;
     if (this.L === L) return this.measure();
     this.L = L;
     this.grid.style.setProperty('--lj-cols', L.cols);
@@ -322,6 +333,23 @@
       this.osdTime = this.osd.querySelector('b');
     }
 
+    this.overlay = this.root.dataset.handover === 'clear';
+    if (this.overlay) {
+      // abertura sobre o conteúdo (ex.: vídeo da home): termina abrindo janelas e some
+      if (this.reduced) { this.finish(true); return; }
+      var skip = function () { self.handover(); };
+      ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach(function (ev) { window.addEventListener(ev, skip, { once: true, passive: true }); });
+      this.later(CFG.darkMs, function () {
+        if (self.handedOver) return;
+        self.root.dataset.phase = 'tape';
+        self.cells.forEach(function (c) { self.setMode(c, 'tape'); });
+        self.kick();
+      });
+      this.later(CFG.letterStartMs, function () { if (!self.handedOver) self.revealLetters(); });
+      this.later(CFG.openingHoldMs + CFG.darkMs, function () { self.handover(); });
+      return;
+    }
+
     if (this.reduced) {
       // composição parada: letras sobre um único quadro de fita
       this.root.dataset.phase = 'still';
@@ -341,6 +369,27 @@
     this.later(CFG.openingHoldMs + CFG.darkMs, function () {
       self.root.dataset.phase = 'cycle';
       self.cycle(0);
+    });
+  };
+
+  /* passagem: cada bloco troca de canal e vira janela transparente; depois a parede some */
+  Wall.prototype.handover = function () {
+    if (this.handedOver) return;
+    this.handedOver = true;
+    var self = this;
+    this.root.dataset.phase = 'handover';
+    var under = this.root.parentElement && this.root.parentElement.querySelector('video');
+    if (under) { try { under.currentTime = 0; var pr = under.play(); if (pr && pr.catch) pr.catch(function () {}); } catch (e) {} }
+    this.zapTo('clear');
+    this.later(160 + CFG.zapLongMs + 120, function () { self.finish(false); });
+  };
+  Wall.prototype.finish = function (instant) {
+    var self = this;
+    this.root.dataset.phase = 'done';
+    this.root.setAttribute('aria-hidden', 'true');
+    this.later(instant ? 0 : 700, function () {
+      self.root.hidden = true;
+      cancelAnimationFrame(self.raf); self.raf = 0; self.visible = false;
     });
   };
 

@@ -89,6 +89,17 @@
 .lj-osd__sp { position: absolute; bottom: 3%; left: 1.6%; }
 .lj-osd__sp b { font-weight: inherit; margin-left: .6em; }
 
+/* parede como abertura sobre outro conteúdo (vídeo): ocupa o pai e some no fim */
+.lj-wall--overlay { position: absolute; inset: 0; z-index: 30; padding: var(--lj-top, 96px) var(--lj-pad) var(--lj-pad);
+  background: var(--lj-bg); transition: background-color .6s var(--lj-ease), opacity .6s var(--lj-ease); }
+.lj-wall--overlay .lj-wall__grid { height: 100%; grid-template-rows: repeat(var(--lj-rows, 3), minmax(0, 1fr)); }
+.lj-wall--overlay .lj-cell { height: auto; }
+.lj-wall--overlay .lj-wall__osd { inset: var(--lj-top, 96px) var(--lj-pad) var(--lj-pad); }
+.lj-wall--overlay[data-phase="handover"] { background-color: color-mix(in srgb, var(--lj-bg) 92%, transparent); }
+.lj-cell[data-mode="clear"] { background: transparent; transition: background-color .12s; }
+.lj-cell[data-mode="clear"] .lj-cell__noise, .lj-cell[data-mode="clear"] .lj-cell__media, .lj-cell[data-mode="clear"] .lj-cell__letter { opacity: 0; }
+.lj-wall--overlay[data-phase="done"] { opacity: 0; pointer-events: none; }
+
 .lj-wall__meta {
   display: flex; justify-content: space-between; gap: 24px;
   padding: 10px var(--lj-pad) 0; font-family: var(--lj-mono); font-size: 12px;

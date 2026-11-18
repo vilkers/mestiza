@@ -2,3 +2,6 @@
 Thumbs.db
 *.log
 .vscode/
+
+# Guaviari BT (Bastarda Type, comercial): fica fora do repositório até confirmar licença de webfont
+assets/fonts/guaviari-bt.*
