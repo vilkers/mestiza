@@ -2,3 +2,6 @@
 Thumbs.db
 *.log
 .vscode/
+
+# Original .otf da Guaviari BT fica local; o site usa assets/fonts/guaviari.woff2 (uso licenciado, confirmado por Vilker em 23/11/2026)
+assets/fonts/guaviari-bt.otf
