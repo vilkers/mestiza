@@ -96,3 +96,25 @@ Tokens medidos no CSS da referência:
 4. Aplicar a mesma linguagem em `/trabalhos/`, `/vireachave/` e páginas de projeto.
 5. Publicar prévia (artifact privado) para Vilker revisar no Safari do iPhone e do Mac.
 6. Só depois do ok: merge em `main`.
+
+## Rodada 1 · 23/11/2026 (home)
+
+Decisões de Vilker nesta rodada:
+- **MESTIZA sempre com o logo oficial**, nunca digitado na Guaviari. O logo foi recortado
+  por letra (`tools/split-logo.py` → `assets/logo/parts/`) para a moeda entrar na composição.
+- **Quatro opções em prévia** (botões A–D no rodapé da página, ou `?logo=a|b|c|d`):
+  A no lugar do I · B entre MESTI e ZA · C depois do logo · D no lugar do S.
+  Nas opções A e D, o T usa `t-solo.png`. O braço direito do T se funde ao I no logo, então
+  o T recebe um terminal espelhado do lado esquerdo.
+- **Animação dissolvente:** a letra se desfaz em grão, as letras abrem espaço e a moeda
+  se forma em grão (`js/papel-coin.js`, canvas 2D, ruído equalizado + grão).
+- **Skills:** `/admin/skills/` (página reservada, com senha). O link fica discreto no rodapé.
+
+Construído: `inicio/index.html` (home nova), `css/papel.css`, `js/papel.js`, `js/papel-coin.js`.
+Prévia privada: https://claude.ai/artifact/8YBJhRe3NRbFuSvcDY2kzq (montada por
+`tools/build-preview.py`, a única cópia com a Guaviari).
+
+Pendente para aprovação: textos do FAQ e dos princípios (rascunho a partir dos textos do site),
+links das redes, logos de clientes (sem arquivos no repo), escolha A–D, e remover o
+seletor de prévia antes de publicar. Próximas páginas: /trabalhos/, /vireachave/,
+/projetos-especiais/, entrada pública e contato.
