@@ -8,6 +8,12 @@
 - Estilos e interação da entrada: `css/construction.css` e `js/construction.js`.
 
 
+## Kit de skills · /kit/ (interno, com senha, sem link na home)
+- `/kit/` lista as fichas a partir de `kit/skills.json`. Visual e scripts comuns em `kit/kit.css` e `kit/kit.js` (fundo preto com chiado de TV, identidade da entrada atual).
+- Cada skill é uma pasta `kit/<slug>/index.html` com o `.md` embutido em `<script type="text/plain" data-skill-md data-filename="arquivo.md">`. O download e os prompts copiáveis (`### título` + bloco de código) saem desse `.md`.
+- Para adicionar: copiar `kit/motion/index.html` como base, trocar textos e o `.md`, incluir uma entrada em `kit/skills.json` (nome, pagina, arquivo, resumo, para, ferramentas, tags, versao, atualizada).
+- O repositório é público: o `.md` não deve ter material confidencial de cliente.
+
 ## O que é isso
 Site + identidade digital do **Mestiza**, um studio criativo. Este repositório hospeda o site no GitHub Pages em **mestiza.work** (já no ar).
 

@@ -1,0 +1,15 @@
+{
+  "skills": [
+    {
+      "nome": "Kit Motion",
+      "pagina": "/kit/motion/",
+      "arquivo": "mestiza-motion.md",
+      "resumo": "Do PSD à peça animada. Rotas para animar KV e elementos de campanha com IA (After Effects + script, PNG + código, IA de vídeo), checklist de PSD, princípios de craft e prompts prontos.",
+      "para": "Bruno Franco",
+      "ferramentas": "ChatGPT, Claude, After Effects",
+      "tags": ["Motion", "PSD", "Campanha"],
+      "versao": "1.0",
+      "atualizada": "18.11.2026"
+    }
+  ]
+}
