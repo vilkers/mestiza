@@ -7,9 +7,28 @@
       "resumo": "Do PSD à peça animada. Rotas para animar KV e elementos de campanha com IA (After Effects + script, PNG + código, IA de vídeo), checklist de PSD, princípios de craft e prompts prontos.",
       "para": "Bruno Franco",
       "ferramentas": "ChatGPT, Claude, After Effects",
-      "tags": ["Motion", "PSD", "Campanha"],
+      "tags": [
+        "Motion",
+        "PSD",
+        "Campanha"
+      ],
       "versao": "1.0",
       "atualizada": "18.11.2026"
+    },
+    {
+      "nome": "Pokerodas",
+      "pagina": "/kit/pokerodas/",
+      "arquivo": "mestiza-pokerodas.md",
+      "resumo": "Produto Mestiza. A compra de um carro vira uma rota guiada e gamificada: perfil, shortlist, comparação, simulação de pagamento e radar de anúncios. Ficha do produto com prompts para apresentar ou criar uma nova edição.",
+      "para": "Equipe Mestiza",
+      "ferramentas": "ChatGPT, Claude",
+      "tags": [
+        "Produto",
+        "App",
+        "Decisão de compra"
+      ],
+      "versao": "Site v10",
+      "atualizada": "24.11.2026"
     }
   ]
 }
